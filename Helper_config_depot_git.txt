@@ -3,6 +3,6 @@ git init
 git add mes fichiers.mes_extensions.
 git commit -m "Mon message qui résume ce que je commit."
 git remote add origin https://github.com/SRimbaud/Passerelle_LoPy.git
-git push -u origin master (master ou le nom de la branche dans laquelle je push.)
+git push origin master (master ou le nom de la branche dans laquelle je push.)
 
 Source : GitHub. 
