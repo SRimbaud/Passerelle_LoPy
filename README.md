@@ -1,6 +1,9 @@
 # Projet Passerelle Wifi/LoRa/Bluetooth.
 
 Le dossier LowCostLoRaGateWay c'est le truc du gars de Pau.
+Il n'est pas intégré dans le dépôt git. Il faut aller le chercher
+sur github je n'ai pas fait de lien avec le projet du gars de Pau.
+[Dépôt Github du gars de Pau](https://github.com/CongducPham/LowCostLoRaGw)
 
 ## Pour insérer du code Python sur la LoPy :
 * Alimenter la Lopy en 5V.
@@ -14,11 +17,13 @@ Le dossier LowCostLoRaGateWay c'est le truc du gars de Pau.
 * Utiliser filezilla.
 * Fichier>Gestionnaire de site (Ou Ctrl + S)
 * Nouveau Site
-* Hôte 192.168.4.1 Port (laisser vide)
+* Hôte 192.168.4.1 Port (laisser vide, ou choisir le port que vous voulez.)
 * Protocole : FTP
 * Chiffrement : Connexion FTP simple (non sécurisée).
-* Autres paramètres au choix (Testé : Demander mot de passe
-			avec login "micro")
+* Autres paramètres au choix 
+	 Testé :
+	 * Demander mot de passe
+	 * avec login "micro"
 * Onglet paramètre de transfert 
 	* Passif
 	* Limiter le nombre de connection simultannée à 1.
@@ -27,15 +32,17 @@ Le dossier LowCostLoRaGateWay c'est le truc du gars de Pau.
 	* Detection auto (j'ai pas testé le reste)
 
 ## Utilisation FileZilla :
-Depuis le gestionnaire de site demander une connection.
-Une fois connecter naviguer dans votre arborescence ou
-celle de la LoPy. On ouvre le dossier Flash dans lequel
+
+* Depuis le gestionnaire de site demander une connection.
+* Une fois connecté naviguer dans votre arborescence ou
+celle de la LoPy.
+*  On ouvre le dossier Flash dans lequel
 apparaît boot.py et main.py. On ne SUPPRIME PAS boot.py.
 On peut ajouter de nouveaux fichiers.
 Pour éditer boot.py ou main.py 
-*Créer des fichiers du même nom dans votre arborescence.
-*Double cliquer sur celui dans votre ordi.
-*Choisir remplacer. (Un back up est utile pour pas
+* Créer des fichiers du même nom dans votre arborescence.
+* Double cliquer sur celui dans votre ordi.
+* Choisir remplacer. (Un back up est utile pour pas
 perdre celui sur votre ordi si mauvaise manip.)
 
 On peut ajouter des modules à la LoPy qu'on l'on pourra
