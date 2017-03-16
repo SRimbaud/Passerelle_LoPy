@@ -2,31 +2,35 @@ from machine import unique_id
 from crypto import AES
 import crypto
 
-class Gateway(object):
+# On va utiliser une classe qui implémente de manière générale un noeud que ce
+# soit une gateway ou un endPoint device. En effet l'héritage n'est pas fonctionnel
+# à 100% en microPython on va donc créer des objets possédant le Node_Core.
+# Leurs méthodes feront appels aux méthodes du Node_core et géreront les exceptions
+# et erreurs à leur façon selon le comportement que l'on cherche.
+
+
+class _Node_Core(object):
     """Gateway class connected to a node"""
     #Classe mère pour Gateway et Node
 
-    def __init__(self,nom="moi", nodes= {}) :
+    def __init__(self,nom="moi", mode='G', nodes= {}) :
         """ Initialisation
          - [Node dictionnary : [key] = "name" ]"""
         #Création clef chiffrement à partir id machine.
         #Initialisation dictionnaire de nodes avec leur clef.
+        self.mode= mode
         self.key = set_size(unique_id())
         self.nodes = nodes
-        self.unknown_nodes = {}
+        if(mode=='G'):
+            self.unknown_nodes = {}
         #Répertorie le nom des nodes qui ont communiquées avec
         # nous et dont on ne connait pas le nom. Chaque nom est
         # associé à un entier indiquant le nombre de fois qu'elles ont tentées
         # de communiquer.
         #Initialisation du nom
-        if(type(nom) is str):
-            nom = nom.encode()
-            self.nom = set_size(nom)
-        elif(type(nom) is not bytes):
-            raise AttributeError("Argument 'nom' should be string or bytes")
-        else :
-            self.nom = set_size(nom) ;
-
+        self.nom = set_size(nom)
+        if(self.nom == -1):
+            raise AttributeError("nom should be a string or a byte or a convertible type to byte")
 
     def _crypt(self, data, key):
         """Crypt a data with the key, key.
@@ -42,15 +46,19 @@ class Gateway(object):
         return(cipher.decrypt(data[16:]))
 
     def _translateIntoKey(self, string):
-        """Effectue la traduction entre un nom de LoPy et sa
-        clef si celle-ci est connue par la LoPy"""
+        """Give the key corresponding to the node named by string.
+        The name should be known and associated with a key (see AddNode)"""
+        #Nécessite gestion des returns si jamais pas de clef !
         if(string in self.nodes):
             return(self.nodes[string])
-        else:
+        elif(self.mode == 'G'):
             if(string in self.unknown_nodes):
                 self.unknown_nodes[string] += 1;
             else:
                 self.unknown_nodes[string] = 1;
+        else :
+            raise KeyError("Message received from unknown Node")
+        raise KeyError("Message received from unknown Node")
 
     def rebootKey(self ):
         """Generate a key with the machine id. Use it only if you've
@@ -80,28 +88,42 @@ class Gateway(object):
             return(0);
 
     def buildMsg(self, data, dest):
-        """Build a package for dest. Should be a key"""
-        #Chiffrement data 
+        """Build a package for dest. Should be a key. Can raise a KeyError if
+        data is send to an unknown device"""
+        #Chiffrement data
         data = self._crypt(data, self.key)
         #Ajout identité émetteur au début du message.
         data = self.nom + data ;
         #Cryptage émetteur.
-        data = self._crypt(data, self._translateIntoKey(dest))
+        clef = self._translateIntoKey(dest)
+        data = self._crypt(data,clef )
         return(data)
 
     def readMsg(self, data):
         """Read a data message. Return 0 if sender is
-        unknown."""
+        unknown. Can raise KeyError if data is send from an unknown
+        device."""
         data = self._decrypt(data, self.key)
         #On regarde si la trame vient de quelqu'un de connu
         if(data[:16] not in self.nodes):
             return(0); #Émetteur inconnu
         else :
-            data = self._decrypt(data[16:], self._translateIntoKey(data[:16]))
+            clef = self._translateIntoKey(data[:16])
+            data = self._decrypt(data[16:], clef )
             return(data);
 
+
+
 def set_size(byte, size=16):
-    """Force byte having the size size (default 16)"""
+    """Force byte having the size size (default 16) return -1 if byte is 
+    not a byte a type wich can be convert into byte"""
+    #Check byte type.
+    if(type(byte) is not bytes):
+        try :
+            byte = byte.encode()
+        except Exception :
+            return(-1)
+
     i = size - len(byte)
     if(i==0):
         return(byte)
