@@ -12,6 +12,8 @@ Cela implique que chaque LoPy possède un [dictionnaire](https://openclassrooms.
 dont les clefs sont les noms des autres LoPy et les valeurs les clefs de chiffrement.
 Une combinaison Nom/clef de Chiffrement est entrée par l'utilisateur (qui à priori est le seul à connaitre la clef).
 
+![Schéma principe protocole](https://github.com/SRimbaud/Passerelle_LoPy/blob/master/scripts/Sch%C3%A9ma_trame.jpg)
+
 ### Chiffrement
 
 Pour chiffrer on utilise le code décrit par la [documentation de la LoPy](https://docs.pycom.io/pycom_esp32/library/ucrypto.AES.html ).
