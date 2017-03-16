@@ -1,45 +1,40 @@
 # Projet Passerelle Wifi/LoRa/Bluetooth.
 
-Le dossier LowCostLoRaGateWay c'est le truc du gars de Pau.
+Le dossier LowCostLoRaGateWay c'est le dossier de Congduc Pham (Professeur de l'université de Pau).
 Il n'est pas intégré dans le dépôt git. Il faut aller le chercher
-sur github je n'ai pas fait de lien avec le projet du gars de Pau.
-[Dépôt Github du gars de Pau](https://github.com/CongducPham/LowCostLoRaGw)
+sur github je n'ai pas fait de lien avec le projet.
+[Dépôt Github de Congduc Pham](https://github.com/CongducPham/LowCostLoRaGw)
 
-## Pour insérer du code Python sur la LoPy :
+## Utilisation de LoPy avec carte de prototypage Pycom :
+
+
+* [Installer l'IDE Pymakr](https://www.pycom.io/pymakr/)
+* [Utiliser Pymakr](https://docs.pycom.io/pycom_esp32/pycom_esp32/toolsandfeatures.html#pymakr-ide)
+
+
+## Utilisation de LoPy sans carte de prototypage Pycom :
+
+### Se connecter à la LoPy :
+
 * Alimenter la Lopy en 5V.
 * Se connecter à son réseau Wifi mdp : www.pycom.io
 * Dans un shell lancer : telnet 192.168.4.1
 	* login : micro
 	* mdp : python
-* On a un shell python sur la LoPy.
 
-## Pour éditer les fichiers de la LoPy :
-* Utiliser filezilla.
-* Fichier>Gestionnaire de site (Ou Ctrl + S)
-* Nouveau Site
-* Hôte 192.168.4.1 Port (laisser vide, ou choisir le port que vous voulez.)
-* Protocole : FTP
-* Chiffrement : Connexion FTP simple (non sécurisée).
-* Autres paramètres au choix 
-	 Testé :
-	 * Demander mot de passe
-	 * avec login "micro"
-* Onglet paramètre de transfert 
-	* Passif
-	* Limiter le nombre de connection simultannée à 1.
+On a un shell python sur la LoPy.
 
-* Onglet Jeu de caractères
-	* Detection auto (j'ai pas testé le reste)
-
-## Utilisation FileZilla :
+### Pour éditer les fichiers de la LoPy avec FileZilla :
 
 * Depuis le gestionnaire de site demander une connection.
 * Une fois connecté naviguer dans votre arborescence ou
 celle de la LoPy.
 *  On ouvre le dossier Flash dans lequel
-apparaît boot.py et main.py. On ne SUPPRIME PAS boot.py.
+apparaît boot.py et main.py. On ne **SUPPRIME PAS** boot.py.
 On peut ajouter de nouveaux fichiers.
+
 Pour éditer boot.py ou main.py 
+
 * Créer des fichiers du même nom dans votre arborescence.
 * Double cliquer sur celui dans votre ordi.
 * Choisir remplacer. (Un back up est utile pour pas
@@ -49,10 +44,28 @@ On peut ajouter des modules à la LoPy qu'on l'on pourra
 importer dans le main ou le boot ou le shell.
 
 
+### Configuration FileZilla :
+
+* Utiliser filezilla.
+* Fichier>Gestionnaire de site (Ou Ctrl + S)
+* Nouveau Site
+* Hôte 192.168.4.1 Port (laisser vide, ou choisir le port que vous voulez.)
+* Protocole : FTP
+* Chiffrement : Connexion FTP simple (non sécurisée).
+* Autres paramètres au choix (Testé) : 
+	 * Demander mot de passe
+	 * avec login "micro"
+* Onglet paramètre de transfert 
+	* Passif
+	* Limiter le nombre de connection simultannée à 1.
+
+* Onglet Jeu de caractères
+	* Detection auto (j'ai pas testé le reste)
+
 
 
 
 Tuteur(s) : Sylvain Huet.
 
 
-Last edit : Seb 15 Mars 2017
+Last edit : Seb 16 Mars 2017
