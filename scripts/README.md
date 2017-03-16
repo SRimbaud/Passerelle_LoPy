@@ -24,11 +24,11 @@ et est placé en clair sur les 16 premiers octets de chaque trame chiffrée. **I
 ## Logique d'implémentation :
 
 On n'a pas accès à l'héritage en microPython. On va donc simuler le comportement en créant une classe commune
-aux nodes et aux gateway : `_Node_Core`. Cette classe possède quelques capacités d'adaptation selon notre envie de
+aux nodes et aux gateway : `Node_Core`. Cette classe possède quelques capacités d'adaptation selon notre envie de
 créer une gateway ou une node pour accélérer l'implémentation. Toutes les fonctions communes aux nodes et gateways
 doivent être dans cette classe.
-Une node et une gateway possèdes un champ qui est une `_Node_Core`. Leurs méthodes font appels aux méthodes de cette
-`_Node_Core` et elles peuvent implémenter d'autres fonctionnalités.
+Une node et une gateway possèdes un champ qui est une `Node_Core`. Leurs méthodes font appels aux méthodes de cette
+`Node_Core` et elles peuvent implémenter d'autres fonctionnalités.
 
 ### Node\_Core
 

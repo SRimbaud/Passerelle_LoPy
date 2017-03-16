@@ -9,7 +9,7 @@ import crypto
 # et erreurs à leur façon selon le comportement que l'on cherche.
 
 
-class _Node_Core(object):
+class Node_Core(object):
     """Gateway class connected to a node"""
     #Classe mère pour Gateway et Node
 
@@ -45,17 +45,23 @@ class _Node_Core(object):
         cipher = AES(key, AES.MODE_CFB, data[:16])
         return(cipher.decrypt(data[16:]))
 
-    def _translateIntoKey(self, string):
+    def _translateIntoKey(self, string, state ='receive'):
         """Give the key corresponding to the node named by string.
-        The name should be known and associated with a key (see AddNode)"""
+        The name should be known and associated with a key (see AddNode)
+        State indicator is usefull for Gw mode. It indicates if a message
+        is send or received in case if we are communicating with in unknown node."""
         #Nécessite gestion des returns si jamais pas de clef !
         if(string in self.nodes):
             return(self.nodes[string])
+
         elif(self.mode == 'G'):
             if(string in self.unknown_nodes):
-                self.unknown_nodes[string] += 1;
+                self.unknown_nodes[string][state] += 1;
             else:
-                self.unknown_nodes[string] = 1;
+                self.unknown_nodes[string]= {};
+                self.unknown_nodes[string]['send'] = 0;
+                self.unknown_nodes[string]['receive'] = 0;
+                self.unknown_nodes[string][state] += 1;
         else :
             raise KeyError("Message received from unknown Node")
         raise KeyError("Message received from unknown Node")
@@ -90,12 +96,13 @@ class _Node_Core(object):
     def buildMsg(self, data, dest):
         """Build a package for dest. Should be a key. Can raise a KeyError if
         data is send to an unknown device"""
+        dest = set_size(dest)
         #Chiffrement data
         data = self._crypt(data, self.key)
         #Ajout identité émetteur au début du message.
         data = self.nom + data ;
         #Cryptage émetteur.
-        clef = self._translateIntoKey(dest)
+        clef = self._translateIntoKey(dest, state = 'send')
         data = self._crypt(data,clef )
         return(data)
 
@@ -105,12 +112,9 @@ class _Node_Core(object):
         device."""
         data = self._decrypt(data, self.key)
         #On regarde si la trame vient de quelqu'un de connu
-        if(data[:16] not in self.nodes):
-            return(0); #Émetteur inconnu
-        else :
-            clef = self._translateIntoKey(data[:16])
-            data = self._decrypt(data[16:], clef )
-            return(data);
+        clef = self._translateIntoKey(data[:16], state='receive')
+        data = self._decrypt(data[16:], clef )
+        return(data);
 
 
 
