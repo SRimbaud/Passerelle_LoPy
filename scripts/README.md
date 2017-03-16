@@ -1,4 +1,4 @@
-#Ensemble de scripts python pour la Lopy
+# Ensemble de scripts python pour la Lopy
 
 ## Protocole
 
@@ -12,19 +12,19 @@ Cela implique que chaque LoPy possède un [dictionnaire](https://openclassrooms.
 dont les clefs sont les noms des autres LoPy et les valeurs les clefs de chiffrement.
 Une combinaison Nom/clef de Chiffrement est entrée par l'utilisateur (qui à priori est le seul à connaitre la clef).
 
-###Chiffrement
+### Chiffrement
 
 Pour chiffrer on utilise le code décrit par la [documentation de la LoPy](https://docs.pycom.io/pycom_esp32/library/ucrypto.AES.html ).
 Afin de chiffrer correctement un nombre l'*iv* est généré aléatoirement et (nécessite bluetooth et/ou wifi activé, car se base sur le bruit mesuré)
 et est placé en clair sur les 16 premiers octets de chaque trame chiffrée. **Il faut une combinaison iv + clef pour déchiffrer pas de panique**.
 
 
-##Gateway
+## Gateway
 
 Le code est disponible pas encore testé. 
 
 
-##Node
+## Node
 
 Code non écrit, très fortement basé sur celui de la gateway (copié/collé).
 On évite l'héritage MicroPython supporte mal.
