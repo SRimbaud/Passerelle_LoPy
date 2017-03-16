@@ -30,16 +30,16 @@ doivent être dans cette classe.
 Une node et une gateway possèdes un champ qui est une `_Node_Core`. Leurs méthodes font appels aux méthodes de cette
 `_Node_Core` et elles peuvent implémenter d'autres fonctionnalités.
 
-## Node\_Core
+### Node\_Core
 
 Classe "mère" pour nos gateways et node. Testée et fonctionnelle.
 
-## Gateway
+### Gateway
 
 Code non disponible
 
 
-## Node
+### Node
 
 Code non disponible
 
