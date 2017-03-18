@@ -5,7 +5,7 @@ import time
 
 # initialize LoRa in LORA mode
 # more params can also be given, like frequency, tx power and spreading factor
-def LoraRAW() :
+def LoraRAW(msg = 'Hello') :
     lora = LoRa(mode=LoRa.LORA)
 
 # create a raw LoRa socket
@@ -14,7 +14,7 @@ def LoraRAW() :
     while True:
         # send some data
         s.setblocking(True)
-        s.send('Hello')
+        s.send(msg)
 
         # get any data received...
         s.setblocking(False)
