@@ -41,7 +41,6 @@ class Node_Core(object):
 
     def _decrypt(self, data, key):
         """Decrypt a message"""
-        iv = data[:16]
         cipher = AES(key, AES.MODE_CFB, data[:16])
         return(cipher.decrypt(data[16:]))
 

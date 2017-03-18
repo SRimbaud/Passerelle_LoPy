@@ -37,7 +37,7 @@ class Gateway(object):
         node"""
         try :
             data = self.core.buildMsg(data, target)
-        except KeyError as e :
+        except KeyError  :
             print("Message sended to unknown node")
         else :
             self.loraSocket.send(data);
@@ -46,6 +46,7 @@ class Gateway(object):
         """Check received message and read it return read
         data in an array, store readed messages in self.loraMsg"""
         cmpt = 0
+        data = self.loraSocket.recv(512)
         while(data !=b'' or cmpt > 50):
             data = self.loraSocket.recv(512)
             name, data = self.core.readMsg(data)
@@ -59,7 +60,7 @@ class Gateway(object):
 
     def getLastReadedMsg(self, name):
         """Return the last received message from the node called name"""
-        return(slef.loraMsg[name][:-1])
+        return(self.loraMsg[name][:-1])
 
     def getFirstReadedMsg(self, name):
         """Return older readed message for node name"""
