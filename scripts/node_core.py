@@ -96,11 +96,12 @@ class Node_Core(object):
     def buildMsg(self, data, dest):
         """Build a package for dest. Should be a key. Can raise a KeyError if
         data is send to an unknown device"""
+        #On encode la taille du message sur 4 octets juste après le nom.
         dest = set_size(dest)
         #Chiffrement data
         data = self._crypt(data, self.key)
         #Ajout identité émetteur au début du message.
-        data = self.nom + data ;
+        data = self.nom + len(data).to_bytes(4) + data ;
         #Cryptage émetteur.
         clef = self._translateIntoKey(dest, state = 'send')
         data = self._crypt(data,clef )
@@ -113,13 +114,15 @@ class Node_Core(object):
         data = self._decrypt(data, self.key)
         #On regarde si la trame vient de quelqu'un de connu
         clef = self._translateIntoKey(data[:16], state='receive')
-        data = self._decrypt(data[16:], clef )
+        taille = data[16:20]
+        taille = int.from_bytes(taille)
+        data = self._decrypt(data[20:taille], clef )
         return(data);
 
 
 
 def set_size(byte, size=16):
-    """Force byte having the size size (default 16) return -1 if byte is 
+    """Force byte having the size size (default 16) return -1 if byte is
     not a byte a type wich can be convert into byte"""
     #Check byte type.
     if(type(byte) is not bytes):
