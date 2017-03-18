@@ -7,6 +7,9 @@ import crypto
 # à 100% en microPython on va donc créer des objets possédant le Node_Core.
 # Leurs méthodes feront appels aux méthodes du Node_core et géreront les exceptions
 # et erreurs à leur façon selon le comportement que l'on cherche.
+#Les clefs et noms sont enregistrées sur 16 octets quoiqu'il arrive. 
+#Complété par des 0 ou tranché s'il faut.
+#Permettre de créer avec un clef de notre choix (utiliser **kwargs)
 
 
 class Node_Core(object):
@@ -31,6 +34,30 @@ class Node_Core(object):
         self.nom = set_size(nom)
         if(self.nom == -1):
             raise AttributeError("nom should be a string or a byte or a convertible type to byte")
+
+    def getNodes(self):
+        return(self.nodes)
+
+    def getUnknownNodes(self):
+        return(self.unknown_nodes)
+
+    def getMyName(self):
+        return(self.nom)
+
+    def getMyKey(self):
+        return(self.key)
+
+    def setNodeName(self,name):
+        """Change node name, return effective save name"""
+        name = set_size(name)
+        self.nom = name
+        return(self.name)
+    
+    def setMyKey(self, key):
+        """Change node name, return effective save key"""
+        key = set_size(key)
+        self.key = key
+        return(self.key)
 
     def _crypt(self, data, key):
         """Crypt a data with the key, key.
@@ -63,7 +90,6 @@ class Node_Core(object):
                 self.unknown_nodes[string][state] += 1;
         else :
             raise KeyError("Message"+ state +" from unknown Node")
-        raise KeyError("Message"+ state +" from unknown Node")
 
     def rebootKey(self ):
         """Generate a key with the machine id. Use it only if you've
@@ -73,24 +99,24 @@ class Node_Core(object):
     def addNode(self,name,key):
         """Add a new node with her key, if the name already
         exist return 1(see changeNodeKey).
-        Return 0 if node is added
-        Modify the key to have a 16 bytes key"""
+        Return name added or 1 if name already exist"""
         key = set_size(key);
+        name = set_size(name)
         if(name not in self.nodes):
             self.nodes[name] = key
-            return(0);
+            return(name);
         else :
             return(1);
 
     def changeNodeKey(self, name, key):
-        """Change the key of a known node. Return 0
+        """Change the key of a known node. Return key added
         and 1 if the node doesn't exist (see addNode)"""
         key = set_size(key);
         if(name not in self.nodes):
             return(1);
         else :
             self.nodes[name] = key
-            return(0);
+            return(key);
 
     def buildMsg(self, data, dest):
         """Build a package for dest. Should be a key. Can raise a KeyError if

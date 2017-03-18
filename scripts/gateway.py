@@ -7,6 +7,7 @@ from network import LoRa
 import os
 import struct
 
+#Permettre création avec clef de notre choix **kwargs
 
 class Gateway(object):
 
@@ -19,13 +20,31 @@ class Gateway(object):
         self.loraMsg = {} #Key are nodes names and they store array of received
         #message from the node
 
+    def getNodes(self):
+        return(self.core.getNodes())
+
+    def getUNodes(self):
+        return(self.core.getUnknownNodes())
+
+    def getName(self):
+        return(self.core.getMyName())
+
+    def getKey(self):
+        return(self.core.getMyKey())
+    
+    def setName(self, name):
+        return(self.core.setNodeName(name))
+
+    def setKey(self, key):
+        return(self.core.setNodeKey(key))
+    
     def addNewNode(self, name, key):
         return(self.core.addNode(name,key))
 
     def setNodeKey(self, name, key):
         return(self.core.changeNodeKey(name, key))
 
-    def starLoRa(self):
+    def startLoRa(self):
         """Init a LoRa connection with LoRa and LoRa socket."""
         self.lora = LoRa(mode=LoRa.LORA, frequency= 863000000)
         self.loraSocket = socket.socket(socket.AF_LORA, socket.SOCK_RAW)
