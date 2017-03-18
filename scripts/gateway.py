@@ -50,6 +50,11 @@ class Gateway(object):
         self.loraSocket = socket.socket(socket.AF_LORA, socket.SOCK_RAW)
         self.loraSocket.setblocking(False)
 
+    def stopLoRa(self):
+        try :
+            self.loraSocket.close()
+        except :
+            print("Socket deja ferme")
 
     def sendMsg(self, data, target):
         """Send a message to target. Target should be a known
@@ -59,7 +64,8 @@ class Gateway(object):
         except KeyError  :
             print("Message sended to unknown node")
         else :
-            self.loraSocket.send(data);
+            print(self.loraSocket.send(data))
+            
 
     def recvMsg(self):
         """Check received message and read it return read
