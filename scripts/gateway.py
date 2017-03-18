@@ -27,7 +27,7 @@ class Gateway(object):
 
     def starLoRa(self):
         """Init a LoRa connection with LoRa and LoRa socket."""
-        self.lora = LoRa(mode LoRa.LORA, frequency= 863000000)
+        self.lora = LoRa(mode=LoRa.LORA, frequency= 863000000)
         self.loraSocket = socket.socket(socket.AF_LORA, socket.SOCK_RAW)
         self.loraSocket.setblocking(False)
 
