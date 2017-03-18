@@ -63,8 +63,8 @@ class Node_Core(object):
                 self.unknown_nodes[string]['receive'] = 0;
                 self.unknown_nodes[string][state] += 1;
         else :
-            raise KeyError("Message received from unknown Node")
-        raise KeyError("Message received from unknown Node")
+            raise KeyError("Message"+ state +" from unknown Node")
+        raise KeyError("Message"+ state +" from unknown Node")
 
     def rebootKey(self ):
         """Generate a key with the machine id. Use it only if you've
@@ -108,16 +108,18 @@ class Node_Core(object):
         return(data)
 
     def readMsg(self, data):
-        """Read a data message. Return 0 if sender is
-        unknown. Can raise KeyError if data is send from an unknown
-        device."""
+        """Read a data message.
+        Can raise KeyError if data is send from an unknown
+        device and node core is created for a Gateway.
+        Return a list with sender's name and message."""
         data = self._decrypt(data, self.key)
         #On regarde si la trame vient de quelqu'un de connu
-        clef = self._translateIntoKey(data[:16], state='receive')
+        name = data[:16]
+        clef = self._translateIntoKey(name, state='receive')
         taille = data[16:20]
         taille = int.from_bytes(taille)
-        data = self._decrypt(data[20:taille], clef )
-        return(data);
+        msg = self._decrypt(data[20:taille], clef )
+        return(name, msg);
 
 
 
