@@ -10,7 +10,7 @@ import crypto
 
 
 class Node_Core(object):
-    """Gateway class connected to a node"""
+    """Core class for a node"""
     #Classe mère pour Gateway et Node
 
     def __init__(self,nom="moi", mode='G', nodes= {}) :
