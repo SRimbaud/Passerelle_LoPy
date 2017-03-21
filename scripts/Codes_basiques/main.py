@@ -2,8 +2,10 @@
 from machine import  UART 
 from network import LoRa
 import socket
+import pycom
 #import machine
 #import time
+pycom.heartbeat(True)
 
 # initialize LoRa in LORA mode
 # more params can also be given, like frequency, tx power and spreading factor

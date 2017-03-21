@@ -64,7 +64,6 @@ class Gateway(object):
     def sendMsg(self, data, target):
         """Send a message to target. Target should be a known
         node"""
-        self.loraSocket.setblocking(True)
 # On bloque antenne pour pas recevoir pendant émission.
         try :
             data = self.core.buildMsg(data, target)
@@ -72,16 +71,22 @@ class Gateway(object):
             print("Message sended to unknown node")
         else :
             print(self.loraSocket.send(data))
-# On réactive l'antenne pour la réception.
-        self.loraSocket.setblocking(False)
-            
 
     def recvMsg(self):
         """Check received message and read it return read
         data in an array, store readed messages in self.loraMsg"""
+        # On réactive l'antenne pour la réception.
         data = self.loraSocket.recv(512)
+# On une limite de taille à la réception la voilà la fameuse limite. Je mesure une
+#limite 64
+        if(len(data) == 0):
+            return(b'')
         print(data)
-        name, data = self.core.readMsg(data)
+        try :
+            name, data = self.core.readMsg(data)
+        except KeyError :
+            return(b'')
+
         self.loraMsg[name].append(data) ;
         return(self.loraMsg)
 

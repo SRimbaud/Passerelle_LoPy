@@ -45,13 +45,13 @@ class Node_Core(object):
         return(self.nom)
 
     def getMyKey(self):
-        return(self.key.decode())
+        return(self.key)
 
     def setNodeName(self,name):
         """Change node name, return effective save name"""
         name = set_size(name)
         self.nom = name
-        return(self.name)
+        return(self.nom)
     
     def setMyKey(self, key):
         """Change node name, return effective save key"""
@@ -68,6 +68,7 @@ class Node_Core(object):
 
     def _decrypt(self, data, key):
         """Decrypt a message"""
+        print(data[:16])
         cipher = AES(key, AES.MODE_CFB, data[:16])
         return(cipher.decrypt(data[16:]))
 
@@ -90,6 +91,7 @@ class Node_Core(object):
                 self.unknown_nodes[string][state] += 1;
         else :
             raise KeyError("Message"+ state +" from unknown Node")
+        raise KeyError("Message"+ state +" from unknown Node")
 
     def rebootKey(self):
         """Generate a key with the machine id. Use it only if you've
