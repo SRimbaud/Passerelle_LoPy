@@ -91,10 +91,10 @@ class Node_Core(object):
         else :
             raise KeyError("Message"+ state +" from unknown Node")
 
-    def rebootKey(self ):
+    def rebootKey(self):
         """Generate a key with the machine id. Use it only if you've
         changed the key and need the old one"""
-        self.key = set_size(unique_id())
+        self.setMyKey(unique_id())
 
     def addNode(self,name,key):
         """Add a new node with her key, if the name already
@@ -126,7 +126,7 @@ class Node_Core(object):
         #Chiffrement data
         data = self._crypt(data, self.key)
         #Ajout identité émetteur au début du message.
-        data = self.nom + len(data).to_bytes(4) + data ;
+        data = self.nom + data ;
         #Cryptage émetteur.
         clef = self._translateIntoKey(dest, state = 'send')
         data = self._crypt(data,clef )
@@ -141,9 +141,7 @@ class Node_Core(object):
         #On regarde si la trame vient de quelqu'un de connu
         name = data[:16]
         clef = self._translateIntoKey(name, state='receive')
-        taille = data[16:20]
-        taille = int.from_bytes(taille)
-        msg = self._decrypt(data[20:taille], clef )
+        msg = self._decrypt(data[16:], clef )
         return(name, msg);
 
 
