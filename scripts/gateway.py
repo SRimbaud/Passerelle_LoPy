@@ -46,9 +46,10 @@ class Gateway(object):
 
     def startLoRa(self):
         """Init a LoRa connection with LoRa and LoRa socket."""
-        self.lora = LoRa(mode=LoRa.LORA, frequency= 863000000)
+        self.lora = LoRa(mode=LoRa.LORA, frequency=863000000, power_mode=LoRa.ALWAYS_ON, tx_power=14, bandwidth=LoRa.BW_250KHZ,  sf=7,  preamble=8,  coding_rate=LoRa.CODING_4_5,  tx_iq=False,  rx_iq=False)
         self.loraSocket = socket.socket(socket.AF_LORA, socket.SOCK_RAW)
         self.loraSocket.setblocking(False)
+
 
     def stopLoRa(self):
         try :
@@ -59,12 +60,16 @@ class Gateway(object):
     def sendMsg(self, data, target):
         """Send a message to target. Target should be a known
         node"""
+        self.loraSocket.setblocking(True)
+# On bloque antenne pour pas recevoir pendant émission.
         try :
             data = self.core.buildMsg(data, target)
         except KeyError  :
             print("Message sended to unknown node")
         else :
             print(self.loraSocket.send(data))
+# On réactive l'antenne pour la réception.
+        self.loraSocket.setblocking(False)
             
 
     def recvMsg(self):
