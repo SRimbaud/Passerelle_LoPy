@@ -1,6 +1,6 @@
 #Le module implémentant une gateway.
 
-from node_core import Node_Core
+from node_core import Node_Core, set_size
 import pycom
 import socket
 from network import LoRa
@@ -19,6 +19,9 @@ class Gateway(object):
         self.loraSocket = 0;
         self.loraMsg = {} #Key are nodes names and they store array of received
         #message from the node
+
+    def getMsglist(self):
+        return(self.loraMsg)
 
     def getNodes(self):
         return(self.core.getNodes())
@@ -39,6 +42,7 @@ class Gateway(object):
         return(self.core.setNodeKey(key))
     
     def addNewNode(self, name, key):
+        self.getMsglist()[set_size(name)] = []
         return(self.core.addNode(name,key))
 
     def setNodeKey(self, name, key):
@@ -75,13 +79,10 @@ class Gateway(object):
     def recvMsg(self):
         """Check received message and read it return read
         data in an array, store readed messages in self.loraMsg"""
-        cmpt = 0
         data = self.loraSocket.recv(512)
-        while(data !=b'' or cmpt > 50):
-            data = self.loraSocket.recv(512)
-            name, data = self.core.readMsg(data)
-            self.loraMsg[name].append(data) ;
-            cmpt+=1
+        print(data)
+        name, data = self.core.readMsg(data)
+        self.loraMsg[name].append(data) ;
         return(self.loraMsg)
 
     def del_Msg(self, name):

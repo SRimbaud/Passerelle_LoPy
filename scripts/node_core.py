@@ -45,7 +45,7 @@ class Node_Core(object):
         return(self.nom)
 
     def getMyKey(self):
-        return(self.key)
+        return(self.key.decode())
 
     def setNodeName(self,name):
         """Change node name, return effective save name"""
