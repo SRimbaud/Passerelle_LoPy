@@ -113,6 +113,7 @@ class Node_Core(object):
     def changeNodeKey(self, name, key):
         """Change the key of a known node. Return key added
         and 1 if the node doesn't exist (see addNode)"""
+        name = set_size(name)
         key = set_size(key);
         if(name not in self.nodes):
             return(1);
