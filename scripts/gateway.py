@@ -8,6 +8,8 @@ import os
 import struct
 
 #Permettre création avec clef de notre choix **kwargs
+#Il intégrer une taille trame pour bien lire comme il faut tout et pas 
+#découper les trames cf liaison série.
 
 class Gateway(object):
 
@@ -17,16 +19,34 @@ class Gateway(object):
         self.core = Node_Core(nom, 'G', nodes)
         self.lora = 0;
         self.loraSocket = 0;
-        self.loraMsg = {} #Key are nodes names and they store array of received
-        #message from the node
+        self.sender = [] # List wich store tuple with senders and message. 
 
-    def getMsglist(self):
-        return(self.loraMsg)
+    def getSenders(self):
+        return(self.sender)
+
+    def getOldestMsg(self):
+        """Return oldest name, message received, see popOldestMsg"""
+        if(self.sender != []):
+            return(self.getSenders()[0])
+        else :
+            return([])
+
+    def popOldestMsg(self):
+        """Return and delete oldest name, message received, see popOldestMsg"""
+        if(self.sender != []):
+            tmp = self.getSenders()
+            return(tmp.pop(0))
+        else :
+            return([])
+
+    def _addRcvMsg(self, name, msg):
+        self.getSenders().append([name, msg])
 
     def getNodes(self):
         return(self.core.getNodes())
 
     def getUNodes(self):
+        """Return list of unknown nodes"""
         return(self.core.getUnknownNodes())
 
     def getName(self):
@@ -39,10 +59,9 @@ class Gateway(object):
         return(self.core.setNodeName(name))
 
     def setKey(self, key):
-        return(self.core.setNodeKey(key))
+        return(self.core.setMyKey(key))
     
     def addNewNode(self, name, key):
-        self.getMsglist()[set_size(name)] = []
         return(self.core.addNode(name,key))
 
     def setNodeKey(self, name, key):
@@ -74,7 +93,7 @@ class Gateway(object):
 
     def recvMsg(self):
         """Check received message and read it return read
-        data in an array, store readed messages in self.loraMsg"""
+        data in an array, store readed messages in self.sender"""
         # On réactive l'antenne pour la réception.
         data = self.loraSocket.recv(512)
 # On une limite de taille à la réception la voilà la fameuse limite. Je mesure une
@@ -87,25 +106,5 @@ class Gateway(object):
         except KeyError :
             return(b'')
 
-        self.loraMsg[name].append(data) ;
-        return(self.loraMsg)
-
-    def del_Msg(self, name):
-        """Delete all messages readed for the node called name"""
-        self.loraMsg[name] = []
-
-    def getLastReadedMsg(self, name):
-        """Return the last received message from the node called name"""
-        return(self.loraMsg[name][:-1])
-
-    def getFirstReadedMsg(self, name):
-        """Return older readed message for node name"""
-        return(self.loraMsg[name][0])
-
-    def delLastReadedMsg(self,name):
-        """Return and delete last readed message from node called name"""
-        return(self.loraMsg[name].pop(-1))
-
-    def delFirstReadedMsg(self,name):
-        """Return and delete last readed message from node called name"""
-        return(self.loraMsg[name].pop(0))
+        self._addRcvMsg(name, data)
+        return((name, data))
