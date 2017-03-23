@@ -10,6 +10,7 @@ class ShellSignals(QObject):
     shellCmd = pyqtSignal( str)
     
 class ShellPromptLine(QLineEdit):
+    """Prompt line used for custom integrated shell"""
     def __init__(self,  parent):
         super().__init__(parent)
         self.setFocusPolicy(Qt.StrongFocus)
@@ -32,8 +33,23 @@ class ShellPromptLine(QLineEdit):
         
 class IntegratedShell(QWidget):
     
-    commandMode = 1 #Mode set if user can enter a command
-    executingMode = 0 #MOde set if user is waiting for execution of a command.
+    ##Static
+    def convertIntoHex(convertible):
+        if(type(convertible) is int) :
+            return(hex(convertible))
+        elif(type(convertible) is QColor):
+            r = checkLenght(hex(convertible.red()))
+            g = checkLenght(hex(convertible.green()))
+            b = checkLenght(hex(convertible.blue()))
+            print(r, g, b)
+            return("#"+r+g+b)
+    
+    def buildHtmlFontBalist(color):
+        chaine = "<FONT color =  "
+        chaine += IntegratedShell.convertIntoHex(color)
+        chaine +=">"
+        return(chaine)
+    
     def __init__(self):
         super().__init__()
         self.initShell()
@@ -41,23 +57,30 @@ class IntegratedShell(QWidget):
     def initShell(self):
         
         ## Customization
-        self.m_edit = QTextEdit( "##Welcome in Shell## ",  self)
+        self.m_bgColor = QColor(26, 26, 26)
+        self.m_bgPalette = QPalette(self.m_bgColor)
+        #Color for Background Shell
+        self.m_inColor = QColor(255, 170,  0)
+        #Color for input User line
+        self.m_outColor = QColor(0,  215, 0)
+        #Color for shell return
+        self.m_errorColor = QColor(234, 0, 0)
+        #Color for error returns.
+        
+        self.m_shellInfoColor = QColor(255, 255, 255)
+        self.m_edit = QTextEdit(self)
+        self.displayInfoSlot( "##Welcome in Shell## ")
         self.m_edit.setReadOnly(True)
+        
         self.m_lineEdit = ShellPromptLine(self)
+        
         self.m_layout = QVBoxLayout(self)
         self.m_layout.addWidget(self.m_edit)
         self.m_layout.addWidget(self.m_lineEdit)
         self.setLayout(self.m_layout)
         
-        self.m_bgColor = QColor(26, 26, 26)
-        self.m_bgPalette = QPalette(self.m_bgColor)
-        #Color for Background Shell
-        self.m_inColor = QColor(160, 160, 255)
-        #Color for input User line
-        self.m_outColor = QColor(255, 170,  0)
-        #Color for shell return
-        self.m_errorColor = QColor(234, 0, 0)
-        #Color for error returns.
+        
+        
         
         ##setting colors :
         self.m_bgPalette.setColor(QPalette.Window, self.m_bgColor)
@@ -67,57 +90,72 @@ class IntegratedShell(QWidget):
         self.m_lineEdit.setPalette(self.m_bgPalette)
         
         ## Data :
-        
-        self.m_cursor = self.m_edit.textCursor()
-        self.m_edit.moveCursor(QTextCursor.EndOfLine)
-        #When we move cursor it moves anchor.
-        #Cursor is after >>>
-        self.m_mode = IntegratedShell.commandMode
+
         ##Signals :
         
         self.sigShell = ShellSignals()
-        self.m_lineEdit.sigShell.shellCmd.connect(self.rcvCmdSlot)
+
  
         
         ##Connection
-        
-        self.sigShell.shellExec.connect(self.escapeKeySlot)
-        self.m_edit.cursorPositionChanged.connect(self.checkCursorPosSlot)
+        self.m_lineEdit.sigShell.shellCmd.connect(self.rcvCmdSlot)
+
+
 
         
     def getSigTextChanged(self):
         return(self.m_edit.testChanged)
     
+
+    ##Slots
     
-    
-    def getCommand(self):
-        """Return Command enter by user. Return QString"""
-        #It uses the anchor. This fucntion is called
-        #by keyPressEvent.
-        return(self.m_cursor.selectedText())
+    def displayInfoSlot(self,  text):
+        """Print information about shell"""
+        chaine = IntegratedShell.buildHtmlFontBalist(self.m_shellInfoColor)
+        chaine += text
+        chaine += "</FONT><br/>"
+        self.m_edit.insertHtml(chaine)
         
-    ##Slots :
-    def checkCursorPosSlot(self):
-        """Slot used to check where the cursor is and if is not in the >>> line."""
-        if self.m_cursor.position() < self.m_cursor.anchor() :
-            self.m_cursor.setPosition(self.m_cursor.anchor(), mode=QTextCursor.KeepAnchor)
-    
-    
-    def escapeKeySlot(self):
-        """Define an action to do when entre key is pressed"""
-        if( self.m_mode is IntegratedShell.commandMode):
-            self.sigShell.emit(self.getCommand())
-        else :
-            return
-            
-    
     def rcvCmdSlot(self, text):
         """Used to receive and print text in the shell"""
-        chaine = "<FONT color = #A0A0FF><br/>>>> "
+        chaine = IntegratedShell.buildHtmlFontBalist(self.m_inColor)
+        chaine += "<br/>>>> "
         chaine += text 
         chaine += "</FONT>"
         self.m_edit.insertHtml(chaine);
-      
+
+    def rcvOutSlot(self, text):
+        """Used to receive and print text in the shell"""
+        chaine = IntegratedShell.buildHtmlFontBalist(self.m_outColor)
+        chaine += "<br/>"
+        chaine += text 
+        chaine += "</FONT>"
+        self.m_edit.insertHtml(chaine);
+        
+    def rcvErrorSlot(self, text):
+        """Used to receive and print text in the shell"""
+        chaine = IntegratedShell.buildHtmlFontBalist(self.m_errorColor)
+        chaine += "<br/>"
+        chaine += text 
+        chaine += "</FONT>"
+        self.m_edit.insertHtml(chaine);
+        
+
+def checkLenght(data,  size = 2):
+    """Force data having lenght size. Need to be used on hexa numbers.
+    remove the Ox identifiers and force hexa being <= 255"""
+    print(data)
+    data = data[2:]
+    print(data)
+    if(len(data)< size):
+        for i in range (0, size - len(data)):
+            data = "0" + data
+        return(data)
+    elif(len(data) > size):
+        return(data[:size])
+    else :
+        return(data)
+    
 if __name__ == '__main__':
     
     app = QApplication(sys.argv)
