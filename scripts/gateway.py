@@ -75,36 +75,42 @@ class Gateway(object):
 
 
     def stopLoRa(self):
+        """Close a LoRa connection return True if closed false if
+        exception. Exception could be raise if LoRa is already
+        closed"""
         try :
             self.loraSocket.close()
+            self.lora.close()
+            return(True)
         except :
-            print("Socket deja ferme")
+            return(False)
 
     def sendMsg(self, data, target):
         """Send a message to target. Target should be a known
-        node"""
+        node return number of bytes sended."""
 # On bloque antenne pour pas recevoir pendant émission.
         try :
             data = self.core.buildMsg(data, target)
         except KeyError  :
-            print("Message sended to unknown node")
+            return(0)
         else :
-            print(self.loraSocket.send(data))
+            return(self.loraSocket.send(data))
 
     def recvMsg(self):
         """Check received message and read it return read
-        data in an array, store readed messages in self.sender"""
+        data in an array, store readed messages in self.sender
+        return True if non empty message is received"""
         # On réactive l'antenne pour la réception.
         data = self.loraSocket.recv(512)
 # On une limite de taille à la réception la voilà la fameuse limite. Je mesure une
 #limite 64
         if(len(data) == 0):
-            return(b'')
+            return(False)
         print(data)
         try :
             name, data = self.core.readMsg(data)
         except KeyError :
-            return(b'')
+            return(False)
 
         self._addRcvMsg(name, data)
-        return((name, data))
+        return(True)

@@ -121,30 +121,42 @@ class Node_Core(object):
             self.nodes[name] = key
             return(key);
 
-    def buildMsg(self, data, dest):
+    def buildMsg(self, data, dest, encryption = False):
         """Build a package for dest. Should be a key. Can raise a KeyError if
         data is send to an unknown device"""
-        #On encode la taille du message sur 4 octets juste après le nom.
+        #Voir si pas d'erreur entre byte et string pour data et dest.
         dest = set_size(dest)
-        #Chiffrement data
-        data = self._crypt(data, self.key)
-        #Ajout identité émetteur au début du message.
-        data = self.nom + data ;
-        #Cryptage émetteur.
-        clef = self._translateIntoKey(dest, state = 'send')
-        data = self._crypt(data,clef )
+        if(encryption):
+            #Chiffrement data
+            data = self._crypt(data, self.key)
+            #Ajout identité émetteur au début du message.
+            data = self.nom + data ;
+            #Cryptage émetteur.
+            clef = self._translateIntoKey(dest, state = 'send')
+            data = self._crypt(data,clef )
+        else :
+            # On traduit quand même en clef pour conserver le 
+            #mécanisme d'identification.
+            clef = self._translateIntoKey(dest, state = 'send')
+            data = self.nom + data
         return(data)
 
-    def readMsg(self, data):
+    def readMsg(self, data, encryption = False):
         """Read a data message.
         Can raise KeyError if data is send from an unknown
         device and node core is created for a Gateway.
         Return a list with sender's name and message."""
-        data = self._decrypt(data, self.key)
-        #On regarde si la trame vient de quelqu'un de connu
-        name = data[:16]
-        clef = self._translateIntoKey(name, state='receive')
-        msg = self._decrypt(data[16:], clef )
+        if(encryption):
+            data = self._decrypt(data, self.key)
+            #On regarde si la trame vient de quelqu'un de connu
+            name = data[:16]
+            clef = self._translateIntoKey(name, state='receive')
+            msg = self._decrypt(data[16:], clef )
+        else :
+            # Conservation mécanisme d'identification
+            clef = self._translateIntoKey(name, state='receive')
+            name = data[:16]
+            msg = data[16:]
         return(name, msg);
 
 
