@@ -106,7 +106,6 @@ class Gateway(object):
 #limite 64
         if(len(data) == 0):
             return(False)
-        print(data)
         try :
             name, data = self.core.readMsg(data)
         except KeyError :

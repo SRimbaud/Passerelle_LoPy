@@ -101,25 +101,25 @@ class Node_Core(object):
     def addNode(self,name,key):
         """Add a new node with her key, if the name already
         exist return 1(see changeNodeKey).
-        Return name added or 1 if name already exist"""
+        Return True or False if name already exist"""
         key = set_size(key);
         name = set_size(name)
         if(name not in self.nodes):
             self.nodes[name] = key
-            return(name);
+            return(True);
         else :
-            return(1);
+            return(False);
 
     def changeNodeKey(self, name, key):
-        """Change the key of a known node. Return key added
-        and 1 if the node doesn't exist (see addNode)"""
+        """Change the key of a known node. Return True if succeed
+        and False if the node doesn't exist (see addNode)"""
         name = set_size(name)
         key = set_size(key);
         if(name not in self.nodes):
-            return(1);
+            return(False);
         else :
             self.nodes[name] = key
-            return(key);
+            return(True);
 
     def buildMsg(self, data, dest, encryption = False):
         """Build a package for dest. Should be a key. Can raise a KeyError if
@@ -154,8 +154,8 @@ class Node_Core(object):
             msg = self._decrypt(data[16:], clef )
         else :
             # Conservation mécanisme d'identification
-            clef = self._translateIntoKey(name, state='receive')
             name = data[:16]
+            clef = self._translateIntoKey(name, state='receive')
             msg = data[16:]
         return(name, msg);
 
