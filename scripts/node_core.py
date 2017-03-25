@@ -146,6 +146,8 @@ class Node_Core(object):
         Can raise KeyError if data is send from an unknown
         device and node core is created for a Gateway.
         Return a list with sender's name and message."""
+        name = ""
+        msg = ""
         if(encryption):
             data = self._decrypt(data, self.key)
             #On regarde si la trame vient de quelqu'un de connu
