@@ -52,7 +52,7 @@ class Node_Core(object):
         name = set_size(name)
         self.nom = name
         return(self.nom)
-    
+
     def setMyKey(self, key):
         """Change node name, return effective save key"""
         key = set_size(key)

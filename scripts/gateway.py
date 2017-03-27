@@ -85,18 +85,18 @@ class Gateway(object):
         except :
             return(False)
 
-    def sendMsg(self, data, target):
+    def sendMsg(self, data, target, encryption=False):
         """Send a message to target. Target should be a known
         node return number of bytes sended."""
 # On bloque antenne pour pas recevoir pendant émission.
         try :
-            data = self.core.buildMsg(data, target)
+            data = self.core.buildMsg(data, target, encryption)
         except KeyError  :
-            return(0)
+            return(False)
         else :
             return(self.loraSocket.send(data))
 
-    def recvMsg(self):
+    def recvMsg(self,  encryption=False):
         """Check received message and read it return read
         data in an array, store readed messages in self.sender
         return True if non empty message is received"""
@@ -107,7 +107,7 @@ class Gateway(object):
         if(len(data) == 0):
             return(False)
         try :
-            name, data = self.core.readMsg(data)
+            name, data = self.core.readMsg(data,  encryption)
         except KeyError :
             return(False)
 
