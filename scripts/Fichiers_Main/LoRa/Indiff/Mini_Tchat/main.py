@@ -1,3 +1,5 @@
+"""Fichier surement non fonctionnel pas mis à jour avec les changements
+de la dernière maj Pycom"""
 import pycom
 import time
 import socket
@@ -8,8 +10,7 @@ pycom.heartbeat(False)
 
 def init_interactive_talk():
     #Config initiale
-    lora=LoRa(mode=LoRa.LORA, frequency=863000000)
-    s = socket.socket(socket.AF_LORA, socket.SOCK_RAW)
+    lora=LoRa(mode=LoRa.LORA, frequency=863000000, power_mode=LoRa.ALWAYS_ON, tx_power=14, bandwidth=LoRa.BW_250KHZ,  sf=7,  preamble=8,  coding_rate=LoRa.CODING_4_5,  tx_iq=False,  rx_iq=False)    s = socket.socket(socket.AF_LORA, socket.SOCK_RAW)
     s.setblocking(False)
     return(lora, s);
 

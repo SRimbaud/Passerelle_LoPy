@@ -1,5 +1,13 @@
 # Ensemble de scripts python pour la Lopy
 
+Architecture du dossier :
+
+- Bibliothèques : Modules pour implémenter les noeuds et Gateway.
+- Codes\_basiques : Ensemble de codes de test.
+- tutorial\_pycom : Fichier python copié/collé depuis la documentation.
+- Fichiers\_Main : Ensemble de fichier à la nomination *main.py*.
+
+
 ## Protocole
 
 Une trame est chiffrée avec la clef du destinataire.
@@ -30,19 +38,7 @@ doivent être dans cette classe.
 Une node et une gateway possèdes un champ qui est une `Node_Core`. Leurs méthodes font appels aux méthodes de cette
 `Node_Core` et elles peuvent implémenter d'autres fonctionnalités.
 
-### Node\_Core
-
-Classe "mère" pour nos gateways et node. Testée et fonctionnelle.
-
-### Gateway
-
-Code non disponible
-
-
-### Node
-
-Code non disponible
-
+**Pour plus de détails consulter le dossier : Bibliothèques**
 
 
 
