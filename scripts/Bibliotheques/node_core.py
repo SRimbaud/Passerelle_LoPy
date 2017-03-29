@@ -2,14 +2,14 @@ from machine import unique_id
 from crypto import AES
 import crypto
 
-# On va utiliser une classe qui implémente de manière générale un noeud que ce
-# soit une gateway ou un endPoint device. En effet l'héritage n'est pas fonctionnel
-# à 100% en microPython on va donc créer des objets possédant le Node_Core.
-# Leurs méthodes feront appels aux méthodes du Node_core et géreront les exceptions
-# et erreurs à leur façon selon le comportement que l'on cherche.
-#Les clefs et noms sont enregistrées sur 16 octets quoiqu'il arrive. 
-#Complété par des 0 ou tranché s'il faut.
-#Permettre de créer avec un clef de notre choix (utiliser **kwargs)
+# On va utiliser une classe qui implemente de manière generale un noeud que ce
+# soit une gateway ou un endPoint device. En effet l'heritage n'est pas fonctionnel
+# a 100% en microPython on va donc creer des objets possedant le Node_Core.
+# Leurs methodes feront appels aux methodes du Node_core et gereront les exceptions
+# et erreurs a leur façon selon le comportement que l'on cherche.
+#Les clefs et noms sont enregistrees sur 16 octets quoiqu'il arrive. 
+#Complete par des 0 ou tranche s'il faut.
+#Permettre de creer avec un clef de notre choix (utiliser **kwargs)
 
 
 class Node_Core(object):
@@ -19,16 +19,16 @@ class Node_Core(object):
     def __init__(self,nom="moi", mode='G', nodes= {}) :
         """ Initialisation
          - [Node dictionnary : [key] = "name" ]"""
-        #Création clef chiffrement à partir id machine.
+        #Creation clef chiffrement a partir id machine.
         #Initialisation dictionnaire de nodes avec leur clef.
         self.mode= mode
         self.key = set_size(unique_id())
         self.nodes = nodes
         if(mode=='G'):
             self.unknown_nodes = {}
-        #Répertorie le nom des nodes qui ont communiquées avec
+        #Repertorie le nom des nodes qui ont communiquees avec
         # nous et dont on ne connait pas le nom. Chaque nom est
-        # associé à un entier indiquant le nombre de fois qu'elles ont tentées
+        # associe a un entier indiquant le nombre de fois qu'elles ont tentees
         # de communiquer.
         #Initialisation du nom
         self.nom = set_size(nom)
@@ -77,7 +77,7 @@ class Node_Core(object):
         The name should be known and associated with a key (see AddNode)
         State indicator is usefull for Gw mode. It indicates if a message
         is send or received in case if we are communicating with in unknown node."""
-        #Nécessite gestion des returns si jamais pas de clef !
+        #Necessite gestion des returns si jamais pas de clef !
         if(string in self.nodes):
             return(self.nodes[string])
 
@@ -129,14 +129,14 @@ class Node_Core(object):
         if(encryption):
             #Chiffrement data
             data = self._crypt(data, self.key)
-            #Ajout identité émetteur au début du message.
+            #Ajout identite emetteur au debut du message.
             data = self.nom + data ;
-            #Cryptage émetteur.
+            #Cryptage emetteur.
             clef = self._translateIntoKey(dest, state = 'send')
             data = self._crypt(data,clef )
         else :
             # On traduit quand même en clef pour conserver le 
-            #mécanisme d'identification.
+            #mecanisme d'identification.
             clef = self._translateIntoKey(dest, state = 'send')
             data = self.nom + data
         return(data)
@@ -155,7 +155,7 @@ class Node_Core(object):
             clef = self._translateIntoKey(name, state='receive')
             msg = self._decrypt(data[16:], clef )
         else :
-            # Conservation mécanisme d'identification
+            # Conservation mecanisme d'identification
             name = data[:16]
             clef = self._translateIntoKey(name, state='receive')
             msg = data[16:]
