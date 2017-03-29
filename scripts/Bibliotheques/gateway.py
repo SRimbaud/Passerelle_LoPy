@@ -53,7 +53,9 @@ class Gateway(object):
 
     def __init__(self, nom="moi", nodes={}):
         """Initialise a new Gateway.
-        @param nom : Name (string) given to the node.
+        @type nom: String
+        @param nom : Name given to the node.
+        @type nodes: dictionnary
         @param nodes : Known nodes (dictionnary) at creation. Avoid to use it use L{addNewNode}.
         """
         self.core = Node_Core(nom, 'G', nodes)
@@ -95,8 +97,11 @@ class Gateway(object):
 
     def _addRcvMsg(self, name, msg):
         """
-        @param name : String or byte corresponding to name emitter.
-        @param msg : String or byte corresponding to received message.
+        @type name : String or byte 
+        @param name : Corresponding to name emitter.
+        @type msg : String or byte 
+        @param msg : Corresponding to received message.
+
         Add message to the list of senders.
         """
         self.getSenders().append([name, msg])
@@ -112,28 +117,82 @@ class Gateway(object):
         Unknown nodes is a dictionnary containing names of node which tryed
         to communicate. For each node there is a number of received and
         sended messages.
+
         @return: Dictionnary of non saved node from which messages have been
         received or sended.
         """
-        """Return list of unknown nodes"""
         return(self.core.getUnknownNodes())
 
     def getName(self):
+        """@return: Name of the Gateway """
         return(self.core.getMyName())
 
     def getKey(self):
+        """@return: Key of the Gateway"""
         return(self.core.getMyKey())
     
     def setName(self, name):
+        """
+        @type name : String or bytes
+        @param name : New name of your gateway
+        @return: New name of the Gateway.
+        """
         return(self.core.setNodeName(name))
 
     def setKey(self, key):
+        """
+        @type key: Should be a bytes (It has to or you will have troubles)
+        @param key : The new key of the gateway
+        @return: New key of the Gateway
+        """
         return(self.core.setMyKey(key))
     
     def addNewNode(self, name, key):
+        """
+        @type name : String or bytes
+        @param name: Name of the node
+        @type key: Bytes (It has to be or you will have trouble)
+        @param key: Key of the node. 
+
+        Add a node to list of the known nodes. You are able to receive
+        and send messages only to theses nodes.
+        If you try to communicate (send or receive message) from a node
+        which is not in this list, the name of the node which you are trying
+        to communicate with is saved in a list of unknown node. You can read
+        this list with L{getUNodes}.
+        If the node already exist in the list of known nodes no change
+        is performed and the function return C{False}, otherwise it returns
+        C{True}.
+        
+        Note that the key is not important if you communicate without encryption.
+        Both name and key lenght is set to 16.See L{set_size}
+
+        @return: C{True} if key changed Otherwise C{False}
+
+        see L{setNodeKey}
+
+
+        B{Example} :
+
+        >>> gw = Gateway("effe")
+        >>> gw.addNewNode("f00a", b'Akey')
+        True
+        >>> gw.getNodes()
+        {b'f00a000000000000' : b'Akey000000000000'}
+        """
         return(self.core.addNode(name,key))
 
     def setNodeKey(self, name, key):
+        """
+        @type name: String or bytes
+        @param name: Name of the node you to want to change the key
+        @type key: Should be a bytes. (Important)
+        @param key : The new key of the node
+
+        Modify the key of a node saved in the known nodes.
+
+        @return: True if suceed otherwise False.
+        """
         return(self.core.changeNodeKey(name, key))
 
     def startLoRa(self):
@@ -144,9 +203,13 @@ class Gateway(object):
 
 
     def stopLoRa(self):
-        """Close a LoRa connection return True if closed false if
+        """Close a LoRa connection return C{True} if closed C{False} if
         exception. Exception could be raise if LoRa is already
-        closed"""
+        closed
+        
+        B{There is a bug it always return False. But it looks like LoRa is
+        off}
+        """
         try :
             self.loraSocket.close()
             self.lora.close()
@@ -155,9 +218,23 @@ class Gateway(object):
             return(False)
 
     def sendMsg(self, data, target, encryption=False):
-        """Send a message to target. Target should be a known
-        node return number of bytes sended."""
-# On bloque antenne pour pas recevoir pendant emission.
+        """
+        @type data: Bytes or String
+        @param data : Message you want to send (48 bytes long max)
+        @type target: String or Bytes
+        @param target : Name of the node you want to send the message.
+        @type encryption: Boolean
+        @param encryption: Activte or not encryption. Default :C{False}
+
+
+        Send a message to target. Target should be saved in the known node
+        list.
+
+        @return: Return the number of bytes sended. It returns False if
+        the node is not in the list of known nodes or 0 if the message
+        is too long (64 bytes ==> 16 bytes for name, 48 for message)
+        
+        """
         try :
             data = self.core.buildMsg(data, target, encryption)
         except KeyError  :
@@ -166,9 +243,26 @@ class Gateway(object):
             return(self.loraSocket.send(data))
 
     def recvMsg(self,  encryption=False):
-        """Check received message and read it return read
-        data in an array, store readed messages in self.sender
-        return True if non empty message is received"""
+        """
+        @type encryption: Boolean
+        @param encryption: Enable or disable encryption.
+
+        Check if there is any received messages. If it's the case
+        read it. You cannot read a crypted message if you don't set
+        encryption to C{True}
+        When a message is received name of sender and the payload is
+        stored in the FIFO. You can get the last received message
+        with :
+
+         - L{getOldestMsg}
+         - L{popOldestMsg}
+         - L{getSenders}
+
+        @return: C{True} if message is received. Returns False if no data is
+        read or if data is received from unknown nodes, (in this case 
+        sender's will be saved in the list of unknown nodes see 
+        L{getUNodes})
+        """
         # On reactive l'antenne pour la reception.
         data = self.loraSocket.recv(512)
 # On une limite de taille a la reception la voila la fameuse limite. Je mesure une
