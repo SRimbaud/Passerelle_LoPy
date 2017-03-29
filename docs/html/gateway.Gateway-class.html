@@ -1,0 +1,916 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>gateway.Gateway</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="gateway-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="gateway-module.html">Module&nbsp;gateway</a> ::
+        Class&nbsp;Gateway
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="gateway.Gateway-class.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS DESCRIPTION ==================== -->
+<h1 class="epydoc">Class Gateway</h1><p class="nomargin-top"><span class="codelink"><a href="gateway-pysrc.html#Gateway">source&nbsp;code</a></span></p>
+<pre class="base-tree">
+object --+
+         |
+        <strong class="uidshort">Gateway</strong>
+</pre>
+
+<hr />
+<p>Object which implements interface between device and LoRa network. 
+  This network is customized and doesn't with LoRaWAN standard. Each time 
+  Gateway object read a message, this message is added to a FIFO. Each time
+  you want to get a message you have to pop received message.</p>
+
+<!-- ==================== INSTANCE METHODS ==================== -->
+<a name="section-InstanceMethods"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Instance Methods</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-InstanceMethods"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="gateway.Gateway-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">nom</span>=<span class="summary-sig-default">&quot;moi&quot;</span>,
+        <span class="summary-sig-arg">nodes</span>=<span class="summary-sig-default">{}</span>)</span><br />
+      Initialise a new Gateway.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="gateway-pysrc.html#Gateway.__init__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="gateway.Gateway-class.html#getSenders" class="summary-sig-name">getSenders</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Return the entire received message FIFO.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="gateway-pysrc.html#Gateway.getSenders">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="gateway.Gateway-class.html#getOldestMsg" class="summary-sig-name">getOldestMsg</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Returns:
+      A list containing 2 bytes : name of senders and the received data.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="gateway-pysrc.html#Gateway.getOldestMsg">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="gateway.Gateway-class.html#popOldestMsg" class="summary-sig-name">popOldestMsg</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      This function delete the last received message.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="gateway-pysrc.html#Gateway.popOldestMsg">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="gateway.Gateway-class.html#_addRcvMsg" class="summary-sig-name" onclick="show_private();">_addRcvMsg</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">name</span>,
+        <span class="summary-sig-arg">msg</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="gateway-pysrc.html#Gateway._addRcvMsg">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="gateway.Gateway-class.html#getNodes" class="summary-sig-name">getNodes</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Returns:
+      Return known nodes in a dictionnary</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="gateway-pysrc.html#Gateway.getNodes">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="gateway.Gateway-class.html#getUNodes" class="summary-sig-name">getUNodes</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Unknown nodes is a dictionnary containing names of node which tryed 
+      to communicate.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="gateway-pysrc.html#Gateway.getUNodes">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="gateway.Gateway-class.html#getName" class="summary-sig-name">getName</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Returns:
+      Name of the Gateway</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="gateway-pysrc.html#Gateway.getName">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="gateway.Gateway-class.html#getKey" class="summary-sig-name">getKey</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Returns:
+      Key of the Gateway</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="gateway-pysrc.html#Gateway.getKey">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="gateway.Gateway-class.html#setName" class="summary-sig-name">setName</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">name</span>)</span><br />
+      Returns:
+      New name of the Gateway.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="gateway-pysrc.html#Gateway.setName">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="gateway.Gateway-class.html#setKey" class="summary-sig-name">setKey</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">key</span>)</span><br />
+      Returns:
+      New key of the Gateway</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="gateway-pysrc.html#Gateway.setKey">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="gateway.Gateway-class.html#addNewNode" class="summary-sig-name">addNewNode</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">name</span>,
+        <span class="summary-sig-arg">key</span>)</span><br />
+      Returns:
+      <code>True</code> if key changed Otherwise <code>False</code></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="gateway-pysrc.html#Gateway.addNewNode">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="gateway.Gateway-class.html#setNodeKey" class="summary-sig-name">setNodeKey</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">name</span>,
+        <span class="summary-sig-arg">key</span>)</span><br />
+      Returns:
+      True if suceed otherwise False.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="gateway-pysrc.html#Gateway.setNodeKey">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="startLoRa"></a><span class="summary-sig-name">startLoRa</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      Init a LoRa connection with LoRa and LoRa socket.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="gateway-pysrc.html#Gateway.startLoRa">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="gateway.Gateway-class.html#stopLoRa" class="summary-sig-name">stopLoRa</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Close a LoRa connection return <code>True</code> if closed 
+      <code>False</code> if exception.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="gateway-pysrc.html#Gateway.stopLoRa">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="gateway.Gateway-class.html#sendMsg" class="summary-sig-name">sendMsg</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">data</span>,
+        <span class="summary-sig-arg">target</span>,
+        <span class="summary-sig-arg">encryption</span>=<span class="summary-sig-default">False</span>)</span><br />
+      Returns:
+      Return the number of bytes sended.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="gateway-pysrc.html#Gateway.sendMsg">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="gateway.Gateway-class.html#recvMsg" class="summary-sig-name">recvMsg</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">encryption</span>=<span class="summary-sig-default">False</span>)</span><br />
+      Returns:
+      <code>True</code> if message is received.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="gateway-pysrc.html#Gateway.recvMsg">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+</table>
+<!-- ==================== METHOD DETAILS ==================== -->
+<a name="section-MethodDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Method Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-MethodDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="__init__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">nom</span>=<span class="sig-default">&quot;moi&quot;</span>,
+        <span class="sig-arg">nodes</span>=<span class="sig-default">{}</span>)</span>
+    <br /><em class="fname">(Constructor)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="gateway-pysrc.html#Gateway.__init__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Initialise a new Gateway.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>nom</code></strong> (String) - Name given to the node.</li>
+        <li><strong class="pname"><code>nodes</code></strong> (dictionnary) - Known nodes (dictionnary) at creation. Avoid to use it use <a 
+          href="gateway.Gateway-class.html#addNewNode" 
+          class="link">addNewNode</a>.</li>
+    </ul></dd>
+    <dt>Overrides:
+        object.__init__
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="getSenders"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">getSenders</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="gateway-pysrc.html#Gateway.getSenders">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Return the entire received message FIFO. Should not be used except in 
+  specific case, prefer getOldestMsg().</p>
+  <dl class="fields">
+    <dt>Returns:</dt>
+        <dd>Return the entire FIFO.</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="getOldestMsg"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">getOldestMsg</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="gateway-pysrc.html#Gateway.getOldestMsg">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  
+  <dl class="fields">
+    <dt>Returns:</dt>
+        <dd>A list containing 2 bytes : name of senders and the received 
+          data.</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="popOldestMsg"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">popOldestMsg</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="gateway-pysrc.html#Gateway.popOldestMsg">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>This function delete the last received message. If you don't want to 
+  delete it use <a href="gateway.Gateway-class.html#getOldestMsg" 
+  class="link">getOldestMsg</a></p>
+  <dl class="fields">
+    <dt>Returns:</dt>
+        <dd>A liste containing 2 bytes name of senders and data received.</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="_addRcvMsg"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">_addRcvMsg</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">name</span>,
+        <span class="sig-arg">msg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="gateway-pysrc.html#Gateway._addRcvMsg">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>name</code></strong> (String or byte) - Corresponding to name emitter.</li>
+        <li><strong class="pname"><code>msg</code></strong> (String or byte) - Corresponding to received message.
+          <p>Add message to the list of senders.</p></li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="getNodes"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">getNodes</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="gateway-pysrc.html#Gateway.getNodes">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  
+  <dl class="fields">
+    <dt>Returns:</dt>
+        <dd>Return known nodes in a dictionnary</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="getUNodes"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">getUNodes</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="gateway-pysrc.html#Gateway.getUNodes">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Unknown nodes is a dictionnary containing names of node which tryed to
+  communicate. For each node there is a number of received and sended 
+  messages.</p>
+  <dl class="fields">
+    <dt>Returns:</dt>
+        <dd>Dictionnary of non saved node from which messages have been 
+          received or sended.</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="getName"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">getName</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="gateway-pysrc.html#Gateway.getName">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  
+  <dl class="fields">
+    <dt>Returns:</dt>
+        <dd>Name of the Gateway</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="getKey"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">getKey</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="gateway-pysrc.html#Gateway.getKey">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  
+  <dl class="fields">
+    <dt>Returns:</dt>
+        <dd>Key of the Gateway</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="setName"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">setName</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">name</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="gateway-pysrc.html#Gateway.setName">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>name</code></strong> (String or bytes) - New name of your gateway</li>
+    </ul></dd>
+    <dt>Returns:</dt>
+        <dd>New name of the Gateway.</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="setKey"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">setKey</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">key</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="gateway-pysrc.html#Gateway.setKey">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>key</code></strong> (Should be a bytes (It has to or you will have troubles)) - The new key of the gateway</li>
+    </ul></dd>
+    <dt>Returns:</dt>
+        <dd>New key of the Gateway</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="addNewNode"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">addNewNode</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">name</span>,
+        <span class="sig-arg">key</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="gateway-pysrc.html#Gateway.addNewNode">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>name</code></strong> (String or bytes) - Name of the node</li>
+        <li><strong class="pname"><code>key</code></strong> (Bytes (It has to be or you will have trouble)) - Key of the node.
+          <p>Add a node to list of the known nodes. You are able to receive
+          and send messages only to theses nodes. If you try to communicate
+          (send or receive message) from a node which is not in this list, 
+          the name of the node which you are trying to communicate with is 
+          saved in a list of unknown node. You can read this list with <a 
+          href="gateway.Gateway-class.html#getUNodes" 
+          class="link">getUNodes</a>. If the node already exist in the list
+          of known nodes no change is performed and the function return 
+          <code>False</code>, otherwise it returns <code>True</code>.</p>
+          <p>Note that the key is not important if you communicate without 
+          encryption. Both name and key lenght is set to 16.See 
+          set_size</p></li>
+    </ul></dd>
+    <dt>Returns:</dt>
+        <dd><code>True</code> if key changed Otherwise <code>False</code>
+          <p>see <a href="gateway.Gateway-class.html#setNodeKey" 
+          class="link">setNodeKey</a></p>
+          <p><b>Example</b> :</p>
+<pre class="py-doctest">
+<span class="py-prompt">&gt;&gt;&gt; </span>gw = Gateway(<span class="py-string">&quot;effe&quot;</span>)
+<span class="py-prompt">&gt;&gt;&gt; </span>gw.addNewNode(<span class="py-string">&quot;f00a&quot;</span>, b<span class="py-string">'Akey'</span>)
+<span class="py-output">True</span>
+<span class="py-output"></span><span class="py-prompt">&gt;&gt;&gt; </span>gw.getNodes()
+<span class="py-output">{b'f00a000000000000' : b'Akey000000000000'}</span></pre></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="setNodeKey"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">setNodeKey</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">name</span>,
+        <span class="sig-arg">key</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="gateway-pysrc.html#Gateway.setNodeKey">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>name</code></strong> (String or bytes) - Name of the node you to want to change the key</li>
+        <li><strong class="pname"><code>key</code></strong> (Should be a bytes. (Important)) - The new key of the node
+          <p>Modify the key of a node saved in the known nodes.</p></li>
+    </ul></dd>
+    <dt>Returns:</dt>
+        <dd>True if suceed otherwise False.</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="stopLoRa"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">stopLoRa</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="gateway-pysrc.html#Gateway.stopLoRa">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Close a LoRa connection return <code>True</code> if closed 
+  <code>False</code> if exception. Exception could be raise if LoRa is 
+  already closed</p>
+  <p><b>There is a bug it always return False. But it looks like LoRa is 
+  off</b></p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="sendMsg"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">sendMsg</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">data</span>,
+        <span class="sig-arg">target</span>,
+        <span class="sig-arg">encryption</span>=<span class="sig-default">False</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="gateway-pysrc.html#Gateway.sendMsg">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>data</code></strong> (Bytes or String) - Message you want to send (48 bytes long max)</li>
+        <li><strong class="pname"><code>target</code></strong> (String or Bytes) - Name of the node you want to send the message.</li>
+        <li><strong class="pname"><code>encryption</code></strong> (Boolean) - Activte or not encryption. Default :<code>False</code>
+          <p>Send a message to target. Target should be saved in the known 
+          node list.</p></li>
+    </ul></dd>
+    <dt>Returns:</dt>
+        <dd>Return the number of bytes sended. It returns False if the node 
+          is not in the list of known nodes or 0 if the message is too long
+          (64 bytes ==&gt; 16 bytes for name, 48 for message)</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="recvMsg"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">recvMsg</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">encryption</span>=<span class="sig-default">False</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="gateway-pysrc.html#Gateway.recvMsg">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>encryption</code></strong> (Boolean) - Enable or disable encryption.
+          <p>Check if there is any received messages. If it's the case read
+          it. You cannot read a crypted message if you don't set encryption
+          to <code>True</code> When a message is received name of sender 
+          and the payload is stored in the FIFO. You can get the last 
+          received message with :</p>
+          <ul>
+            <li>
+              <a href="gateway.Gateway-class.html#getOldestMsg" 
+              class="link">getOldestMsg</a>
+            </li>
+            <li>
+              <a href="gateway.Gateway-class.html#popOldestMsg" 
+              class="link">popOldestMsg</a>
+            </li>
+            <li>
+              <a href="gateway.Gateway-class.html#getSenders" 
+              class="link">getSenders</a>
+            </li>
+          </ul></li>
+    </ul></dd>
+    <dt>Returns:</dt>
+        <dd><code>True</code> if message is received. Returns False if no 
+          data is read or if data is received from unknown nodes, (in this 
+          case sender's will be saved in the list of unknown nodes see <a 
+          href="gateway.Gateway-class.html#getUNodes" 
+          class="link">getUNodes</a>)</dd>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="gateway-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>
