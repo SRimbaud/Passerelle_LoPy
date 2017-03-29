@@ -1,6 +1,8 @@
 #Le module implémentant une gateway.
 
 from node_core import Node_Core, set_size
+from machine import Timer
+from machine import UART
 import pycom
 import socket
 from network import LoRa
@@ -19,7 +21,50 @@ class Gateway(object):
         self.core = Node_Core(nom, 'G', nodes)
         self.lora = 0;
         self.loraSocket = 0;
-        self.sender = [] # List wich store tuple with senders and message. 
+        self.sender = [] # List wich store tuple with senders and message.
+        self.serialPort = UART(1, 9600)
+
+    def getSerial(self):
+        return(self.serialPort)
+
+    def initSerial(self, baudrate=9600, bits=8, parity=None,stop=1,
+            pin=("P3", "P4")):
+# timeou_char semble ne pas marcher.
+        self.serialPort.init(baudrate=baudrate,bits=bits,parity=parity,
+                stop=stop,pins=pin)
+
+    def deinitSerial(self):
+        self.serialPort.deinit()
+
+    def writeSerial(self, data, target):
+        """Write data on serial port. Target is the name of destinatory
+        (usefull for relaying messages between devices.
+        sended message has the following format :
+        "target\tdata\n" It could be catch with a readline.
+        As for lora return False if target is unknown node.
+        """
+        try :
+            self.core._translateIntoKey(set_size(target))
+        except KeyError :
+            return(False)
+
+        self.serialPort.write(str(target))
+        self.serialPort.write('\t')
+        self.serialPort.write(str(data) + '\n')
+        return(True)
+
+    def readSerial(self):
+        """Read a line with format described by writeSerial
+        return false if no data available"""
+        if (not self.serialPort.any()):
+            return(False)
+        data = self.serialPort.readline()
+        if(data != None):
+            data = data.split('\t')
+            return(data[0], data[1])
+        else :
+            return(False)
+
 
     def getSenders(self):
         return(self.sender)
@@ -113,3 +158,17 @@ class Gateway(object):
 
         self._addRcvMsg(name, data)
         return(True)
+
+        # Function adapted for callback use :
+
+    def callbackSendMsg(self, arg):
+        """ arg is a liste containing 3 args
+        data to send, target and the encryption mode"""
+        print(self.sendMsg(arg[0], arg[1], arg[2]))
+
+    def callbackWriteSerial(self, arg):
+        """Arg is a list wich contains data to send, and the target.
+        see writeSerial.
+        """
+        print(self.writeSerial(arg[0],arg[1]))
+
