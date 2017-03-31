@@ -14,9 +14,6 @@
 <table class="navbar" border="0" width="100%" cellpadding="0"
        bgcolor="#a0c0ff" cellspacing="0">
   <tr valign="middle">
-  <!-- Home link -->
-      <th>&nbsp;&nbsp;&nbsp;<a
-        href="gateway-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
 
   <!-- Tree link -->
       <th>&nbsp;&nbsp;&nbsp;<a
@@ -66,7 +63,8 @@ object --+
 <p>Object which implements interface between device and LoRa network. 
   This network is customized and doesn't with LoRaWAN standard. Each time 
   Gateway object read a message, this message is added to a FIFO. Each time
-  you want to get a message you have to pop received message.</p>
+  you want to get a message you have to pop received message. This object 
+  is able to manage SerialPort on pins P3 and P4.</p>
 
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
@@ -97,6 +95,101 @@ object --+
       Initialise a new Gateway.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="gateway-pysrc.html#Gateway.__init__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="gateway.Gateway-class.html#getSerial" class="summary-sig-name">getSerial</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Returns:
+      Serial created in <a href="gateway.Gateway-class.html#__init__" 
+      class="link">__init__</a> (UART 1,9600)</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="gateway-pysrc.html#Gateway.getSerial">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="gateway.Gateway-class.html#initSerial" class="summary-sig-name">initSerial</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">baudrate</span>=<span class="summary-sig-default">9600</span>,
+        <span class="summary-sig-arg">bits</span>=<span class="summary-sig-default">8</span>,
+        <span class="summary-sig-arg">parity</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">stop</span>=<span class="summary-sig-default">1</span>,
+        <span class="summary-sig-arg">pin</span>=<span class="summary-sig-default">(&quot;P3&quot;,&quot;P4&quot;)</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="gateway-pysrc.html#Gateway.initSerial">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="deinitSerial"></a><span class="summary-sig-name">deinitSerial</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      Turn off the UART bus.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="gateway-pysrc.html#Gateway.deinitSerial">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="gateway.Gateway-class.html#writeSerial" class="summary-sig-name">writeSerial</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">data</span>,
+        <span class="summary-sig-arg">target</span>)</span><br />
+      Returns:
+      True if target is a known node, False otherwhise.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="gateway-pysrc.html#Gateway.writeSerial">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="gateway.Gateway-class.html#readSerial" class="summary-sig-name">readSerial</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Read a line with format described by writeSerial return false if no 
+      data available</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="gateway-pysrc.html#Gateway.readSerial">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -399,6 +492,46 @@ object --+
       
     </td>
   </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="gateway.Gateway-class.html#callbackSendMsg" class="summary-sig-name">callbackSendMsg</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">arg</span>)</span><br />
+      Returns:
+      Same return as <a href="gateway.Gateway-class.html#sendMsg" 
+      class="link">sendMsg</a></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="gateway-pysrc.html#Gateway.callbackSendMsg">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="gateway.Gateway-class.html#callbackWriteSerial" class="summary-sig-name">callbackWriteSerial</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">arg</span>)</span><br />
+      Returns:
+      Same return as <a href="gateway.Gateway-class.html#writeSerial" 
+      class="link">writeSerial</a></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="gateway-pysrc.html#Gateway.callbackWriteSerial">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
 </table>
 <!-- ==================== METHOD DETAILS ==================== -->
 <a name="section-MethodDetails"></a>
@@ -447,6 +580,125 @@ object --+
     <dt>Overrides:
         object.__init__
     </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="getSerial"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">getSerial</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="gateway-pysrc.html#Gateway.getSerial">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  
+  <dl class="fields">
+    <dt>Returns:</dt>
+        <dd>Serial created in <a href="gateway.Gateway-class.html#__init__" 
+          class="link">__init__</a> (UART 1,9600)</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="initSerial"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">initSerial</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">baudrate</span>=<span class="sig-default">9600</span>,
+        <span class="sig-arg">bits</span>=<span class="sig-default">8</span>,
+        <span class="sig-arg">parity</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">stop</span>=<span class="sig-default">1</span>,
+        <span class="sig-arg">pin</span>=<span class="sig-default">(&quot;P3&quot;,&quot;P4&quot;)</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="gateway-pysrc.html#Gateway.initSerial">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>baudrate</code></strong> (int) - Baudrate of the serial link default 9600.</li>
+        <li><strong class="pname"><code>bits</code></strong> (int) - Nunber of bits in a frame, default 8.</li>
+        <li><strong class="pname"><code>parity</code></strong> - None (default), UART.EVEN, UART.ODD</li>
+        <li><strong class="pname"><code>stop</code></strong> (int) - Number of stop bits (1 or 2) default 1.
+          <p>Start a Serial with parameters in the function. You can also 
+          use UART object with Pycom library.</p>
+          <p>See also <a 
+          href="https://docs.pycom.io/pycom_esp32/library/machine.UART.html#machine.uart.init"
+          
+          target="_top">https://docs.pycom.io/pycom_esp32/library/machine.UART.html#machine.uart.init</a></p></li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="writeSerial"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">writeSerial</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">data</span>,
+        <span class="sig-arg">target</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="gateway-pysrc.html#Gateway.writeSerial">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>data</code></strong> (String or Bytes) - Message you want to send.</li>
+        <li><strong class="pname"><code>target</code></strong> (Strong or Bytes) - receiver of your message.
+          <p>The frame has a specific format :</p>
+          <ul>
+            <li>
+              <code>&quot;target\tdata\n&quot;</code>
+            </li>
+          </ul>
+          <p>With this format you can easily read the frame and manage in a
+          database the reception.</p></li>
+    </ul></dd>
+    <dt>Returns:</dt>
+        <dd>True if target is a known node, False otherwhise.</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="readSerial"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">readSerial</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="gateway-pysrc.html#Gateway.readSerial">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Read a line with format described by writeSerial return false if no 
+  data available</p>
+  <p>See also <a href="gateway.Gateway-class.html#writeSerial" 
+  class="link">writeSerial</a></p>
+  <dl class="fields">
+    <dt>Returns:</dt>
+        <dd>Name of target and data or False if no data is available.</dd>
   </dl>
 </td></tr></table>
 </div>
@@ -715,8 +967,9 @@ object --+
           of known nodes no change is performed and the function return 
           <code>False</code>, otherwise it returns <code>True</code>.</p>
           <p>Note that the key is not important if you communicate without 
-          encryption. Both name and key lenght is set to 16.See 
-          set_size</p></li>
+          encryption. Both name and key lenght is set to 16.See <a 
+          href="node_core-module.html#set_size" 
+          class="link">set_size</a></p></li>
     </ul></dd>
     <dt>Returns:</dt>
         <dd><code>True</code> if key changed Otherwise <code>False</code>
@@ -867,14 +1120,77 @@ object --+
   </dl>
 </td></tr></table>
 </div>
+<a name="callbackSendMsg"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">callbackSendMsg</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="gateway-pysrc.html#Gateway.callbackSendMsg">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>arg</code></strong> (list) - List of arguments corresponding to arguments of <a 
+          href="gateway.Gateway-class.html#sendMsg" 
+          class="link">sendMsg</a>. Should have a lenght of 3.
+          <p>You can use this fonction in a callback. In that case 
+          <code>arg</code> is a list corresponding to the 3 arguments of <a
+          href="gateway.Gateway-class.html#sendMsg" 
+          class="link">sendMsg</a>.</p></li>
+    </ul></dd>
+    <dt>Returns:</dt>
+        <dd>Same return as <a href="gateway.Gateway-class.html#sendMsg" 
+          class="link">sendMsg</a></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="callbackWriteSerial"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">callbackWriteSerial</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">arg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="gateway-pysrc.html#Gateway.callbackWriteSerial">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>arg</code></strong> (list) - List of arguments corresponding to arguments of <a 
+          href="gateway.Gateway-class.html#writeSerial" 
+          class="link">writeSerial</a>. Should have a lenght of 2.
+          <p>You can use this fonction in a callback. In that case 
+          <code>arg</code> is a list corresponding to the 2 arguments of <a
+          href="gateway.Gateway-class.html#writeSerial" 
+          class="link">writeSerial</a>.</p></li>
+    </ul></dd>
+    <dt>Returns:</dt>
+        <dd>Same return as <a href="gateway.Gateway-class.html#writeSerial" 
+          class="link">writeSerial</a></dd>
+  </dl>
+</td></tr></table>
+</div>
 <br />
 <!-- ==================== NAVIGATION BAR ==================== -->
 <table class="navbar" border="0" width="100%" cellpadding="0"
        bgcolor="#a0c0ff" cellspacing="0">
   <tr valign="middle">
-  <!-- Home link -->
-      <th>&nbsp;&nbsp;&nbsp;<a
-        href="gateway-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
 
   <!-- Tree link -->
       <th>&nbsp;&nbsp;&nbsp;<a

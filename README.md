@@ -1,8 +1,6 @@
 # Projet Passerelle Wifi/LoRa/Bluetooth.
 
-Le dossier LowCostLoRaGateWay c'est le dossier de Congduc Pham (Professeur de l'université de Pau).
-Il n'est pas intégré dans le dépôt git. Il faut aller le chercher
-sur github je n'ai pas fait de lien avec le projet.
+Vous pouvez trouver la documentation du code source [ici](https://srimbaud.github.io/Passerelle\_LoPy/)
 [Dépôt Github de Congduc Pham](https://github.com/CongducPham/LowCostLoRaGw)
 
 ## Utilisation de LoPy avec carte de prototypage Pycom :
