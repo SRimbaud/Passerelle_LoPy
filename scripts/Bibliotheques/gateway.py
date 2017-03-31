@@ -1,4 +1,4 @@
-#Le module implementant une gateway.
+#Le module implémentant une gateway.
 """
 Module implementing gateway
 ===========================
@@ -51,6 +51,7 @@ class Gateway(object):
     Each time Gateway object read a message, this message is added to
     a FIFO. Each time you want to get a message you have to pop received
     message.
+    This object is able to manage SerialPort on pins P3 and P4.
     """
 
     def __init__(self, nom="moi", nodes={}):
@@ -63,27 +64,58 @@ class Gateway(object):
         self.core = Node_Core(nom, 'G', nodes)
         self.lora = 0;
         self.loraSocket = 0;
-        self.sender = [] # List wich store tuple with senders and message.
+        self.sender = [] # List which store tuple with senders and message.
         self.serialPort = UART(1, 9600)
 
     def getSerial(self):
+        """
+        @return: Serial created in L{__init__} (UART 1,9600)
+        """
         return(self.serialPort)
 
     def initSerial(self, baudrate=9600, bits=8, parity=None,stop=1,
             pin=("P3", "P4")):
+        """
+        @type baudrate: int
+        @param baudrate : Baudrate of the serial link default 9600.
+        @type bits: int
+        @param bits: Nunber of bits in a frame, default 8.
+        @param parity: None (default), UART.EVEN, UART.ODD
+        @type stop : int
+        @param stop: Number of stop bits (1 or 2) default 1.
+
+        Start a Serial with parameters in the function.
+        You can also use UART object with Pycom library.
+        
+
+        See also U{https://docs.pycom.io/pycom_esp32/library/machine.UART.html#machine.uart.init}
+        """
 # timeou_char semble ne pas marcher.
         self.serialPort.init(baudrate=baudrate,bits=bits,parity=parity,
                 stop=stop,pins=pin)
 
     def deinitSerial(self):
+        """
+        Turn off the UART bus.
+        """
         self.serialPort.deinit()
 
     def writeSerial(self, data, target):
-        """Write data on serial port. Target is the name of destinatory
-        (usefull for relaying messages between devices.
-        sended message has the following format :
-        "target\tdata\n" It could be catch with a readline.
-        As for lora return False if target is unknown node.
+        """
+        @type data: String or Bytes
+        @param data: Message you want to send.
+        @type target: Strong or Bytes
+        @param target: receiver of your message.
+
+        The frame has a specific format :
+
+         - C{"target\\tdata\\n"}
+
+        With this format you can easily read the frame and 
+        manage in a database the reception.
+
+
+        @return: True if target is a known node, False otherwhise.
         """
         try :
             self.core._translateIntoKey(set_size(target))
@@ -97,7 +129,12 @@ class Gateway(object):
 
     def readSerial(self):
         """Read a line with format described by writeSerial
-        return false if no data available"""
+        return false if no data available
+
+        See also L{writeSerial}
+        @return: Name of target and data or False if no data is 
+        available.
+        """
         if (not self.serialPort.any()):
             return(False)
         data = self.serialPort.readline()
@@ -299,7 +336,7 @@ class Gateway(object):
         stored in the FIFO. You can get the last received message
         with :
 
-         - L{getOldestMsg}
+         - L{getOldestMsg} 
          - L{popOldestMsg}
          - L{getSenders}
 
@@ -325,13 +362,28 @@ class Gateway(object):
         # Function adapted for callback use :
 
     def callbackSendMsg(self, arg):
-        """ arg is a liste containing 3 args
-        data to send, target and the encryption mode"""
+        """
+        @type arg: list
+        @param arg: List of arguments corresponding to arguments of
+        L{sendMsg}. Should have a lenght of 3.
+
+        You can use this fonction in a callback. In that case C{arg}
+        is a list corresponding to the 3 arguments of L{sendMsg}.
+
+        @return: Same return as L{sendMsg}
+        """
         print(self.sendMsg(arg[0], arg[1], arg[2]))
 
     def callbackWriteSerial(self, arg):
-        """Arg is a list wich contains data to send, and the target.
-        see writeSerial.
+        """
+        @type arg: list
+        @param arg: List of arguments corresponding to arguments of
+        L{writeSerial}. Should have a lenght of 2.
+
+        You can use this fonction in a callback. In that case C{arg}
+        is a list corresponding to the 2 arguments of L{writeSerial}.
+
+        @return: Same return as L{writeSerial}
         """
         print(self.writeSerial(arg[0],arg[1]))
 
