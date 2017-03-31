@@ -10,6 +10,8 @@ Dans ce dossier :
 
 A faire : 
 
-- [ ] Documenter le code.
-- [ ] Augmenter Gateway pour avoir une liaison Série voire un Wifi.
+- [x] Documenter le code.
+- [x] Augmenter Gateway pour avoir une liaison Série voire un Wifi.
+- [ ] Augmenter Gateway un Wifi.
 - [ ] Générer un module pour une node (Gateway LoRa/Bluetooth).
+- [ ] Parfaire la documentation.

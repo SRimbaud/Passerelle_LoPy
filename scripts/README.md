@@ -6,9 +6,12 @@ Architecture du dossier :
 - Codes\_basiques : Ensemble de codes de test.
 - tutorial\_pycom : Fichier python copié/collé depuis la documentation.
 - Fichiers\_Main : Ensemble de fichier à la nomination *main.py*.
+- Raspberry : Codes utilisée dans la Raspberry.
 
 
 ## Protocole
+
+### Liaison LoRa
 
 Une trame est chiffrée avec la clef du destinataire.
 Dans cette trame se trouve le *nom* de l'émetteur (16 premiers octets, soit 26 puissance 16 noms)
@@ -21,6 +24,26 @@ dont les clefs sont les noms des autres LoPy et les valeurs les clefs de chiffre
 Une combinaison Nom/clef de Chiffrement est entrée par l'utilisateur (qui à priori est le seul à connaitre la clef).
 
 ![Schéma principe protocole](https://github.com/SRimbaud/Passerelle_LoPy/blob/master/scripts/Sch%C3%A9ma_trame.jpg)
+
+Nous avons modifié le protocole afin de pouvoir envoyer une trame non chiffrée.
+Dans ce cas nous avons uniquement le nom de l'émetteur dans les 16 premiers 
+octets de la trame. Tout le reste de la trame sert à coder le message. 
+On converse cependant la méthode d'authentification faite pour le cryptage.
+Si la node avec laquelle on communique ou qui communique avec nous n'a pas
+un jeu Nom/clef enregistré on ne considère pas son message.
+
+### Liaison Série :
+
+Afin de faciliter la communication entre la Raspberry et la liaison série nous
+avons mis en forme en format de trame simple permettant une lecture rapide 
+avec un script.
+
+- Début de trame : Nom sur 16 octets de l'émetteur.
+- Séparateur : un \t sépare le nom de l'émetteur du reste de la trame.
+- Message : Suit le message réel de la trame.
+- Fin de trame : Un \n permet de conclure la trame et de la lire avec un simple
+/bin/bash: a : commande introuvable
+
 
 ### Chiffrement
 
