@@ -1,7 +1,7 @@
 # Projet Passerelle Wifi/LoRa/Bluetooth.
 
 Vous pouvez trouver la documentation du code source [ici](https://srimbaud.github.io/Passerelle\_LoPy/)
-Vous trouverez dans le dossier scripts de la branche master tous les scripts et informations nécessaire
+Vous trouverez dans le dossier scripts de la branche master tous les scripts et informations nécessaires
 à la mise en place de la passerelle.
 
 On trouve également le [Dépôt Github de Congduc Pham](https://github.com/CongducPham/LowCostLoRaGw) pour
@@ -70,4 +70,4 @@ importer dans le main ou le boot ou le shell.
 Tuteur(s) : Sylvain Huet.
 
 
-Last edit : Seb 16 Mars 2017
+Last edit : Seb 31 Mars 2017
