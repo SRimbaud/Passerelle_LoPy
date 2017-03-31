@@ -15,3 +15,6 @@ A faire :
 - [ ] Augmenter Gateway un Wifi.
 - [ ] Générer un module pour une node (Gateway LoRa/Bluetooth).
 - [ ] Parfaire la documentation.
+
+
+Last Edit : Seb 31 Mars

@@ -65,4 +65,4 @@ Une node et une gateway possèdes un champ qui est une `Node_Core`. Leurs métho
 
 
 
-Last Edit : Seb 16 Mars 2017 22:16
+Last Edit : Seb 31 Mars 2017 22:16
