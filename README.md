@@ -1,7 +1,11 @@
 # Projet Passerelle Wifi/LoRa/Bluetooth.
 
 Vous pouvez trouver la documentation du code source [ici](https://srimbaud.github.io/Passerelle\_LoPy/)
-[Dépôt Github de Congduc Pham](https://github.com/CongducPham/LowCostLoRaGw)
+Vous trouverez dans le dossier scripts de la branche master tous les scripts et informations nécessaire
+à la mise en place de la passerelle.
+
+On trouve également le [Dépôt Github de Congduc Pham](https://github.com/CongducPham/LowCostLoRaGw) pour
+s'aider.
 
 ## Utilisation de LoPy avec carte de prototypage Pycom :
 
