@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>gateway</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th bgcolor="#70b0f0" class="navbar-select"
+          >&nbsp;&nbsp;&nbsp;Home&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        Module&nbsp;gateway
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="gateway-module.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== MODULE DESCRIPTION ==================== -->
+<h1 class="epydoc">Module gateway</h1><p class="nomargin-top"><span class="codelink"><a href="gateway-pysrc.html">source&nbsp;code</a></span></p>
+<h1 class="heading">Module implementing gateway</h1>
+    <p>Gateway object should be created giving a name with a string which 
+    allows it to be human readable. This name correspond to device name in 
+    a LoRa network.</p>
+  <h1 class="heading">Exemple</h1>
+<pre class="py-doctest">
+<span class="py-prompt">&gt;&gt;&gt; </span><span class="py-comment">#Gateway code.</span>
+<span class="py-prompt">&gt;&gt;&gt; </span>gw = Gateway(<span class="py-string">&quot;effe&quot;</span>) <span class="py-comment">#Creating gateway named effe formated for 16 bytes long.</span>
+<span class="py-prompt">&gt;&gt;&gt; </span>gw.getName() 
+<span class="py-output">b'effe000000000000' </span>
+<span class="py-output"></span><span class="py-prompt">&gt;&gt;&gt; </span>gw.startLoRa() <span class="py-comment"># Start LoRa service in the device.</span>
+<span class="py-prompt">&gt;&gt;&gt; </span>gw.addNewNode(<span class="py-string">&quot;f00a&quot;</span>, b<span class="py-string">'NotSecureKey'</span>) <span class="py-comment">#Add a device to the network.</span>
+<span class="py-prompt">&gt;&gt;&gt; </span>gw.sendMsg(<span class="py-string">&quot;Hello&quot;</span>, <span class="py-string">&quot;f00a&quot;</span>) <span class="py-comment"># Send message to device named f00a.</span>
+<span class="py-output">5</span></pre>
+<pre class="py-doctest">
+<span class="py-prompt">&gt;&gt;&gt; </span><span class="py-comment"># Node Code</span>
+<span class="py-prompt">&gt;&gt;&gt; </span>gw = Gateway(<span class="py-string">&quot;f00a&quot;</span>)
+<span class="py-prompt">&gt;&gt;&gt; </span>gw.addNewNode(<span class="py-string">&quot;effe&quot;</span>, b<span class="py-string">'AnOtherSecureKey'</span>) <span class="py-comment"># Add the gateway to known nodes.</span>
+<span class="py-prompt">&gt;&gt;&gt; </span>gw.startLoRa()
+<span class="py-prompt">&gt;&gt;&gt; </span>gw.recvMsg() <span class="py-comment">#message is saved in a FIFO.</span>
+<span class="py-output">True</span>
+<span class="py-output"></span><span class="py-prompt">&gt;&gt;&gt; </span>gw.popOldestMsg() <span class="py-comment"># return a list with senders and message received.</span>
+<span class="py-output">[b'effe', b'Hello']</span></pre>
+    <p>Default configuration doesn't crypt your data. See <a 
+    href="gateway.Gateway-class.html#sendMsg" 
+    class="link">Gateway.sendMsg</a> for encryption. Each time you want to 
+    communicate you have to be sure that the Node is saved by the gateway 
+    with method <a href="gateway.Gateway-class.html#addNewNode" 
+    class="link">Gateway.addNewNode</a>.</p>
+
+<!-- ==================== CLASSES ==================== -->
+<a name="section-Classes"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Classes</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Classes"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td class="summary" colspan="2">
+        <a href="gateway.Gateway-class.html" class="summary-name">Gateway</a><br />
+      Object which implements interface between device and LoRa network.
+    </td>
+  </tr>
+</table>
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th bgcolor="#70b0f0" class="navbar-select"
+          >&nbsp;&nbsp;&nbsp;Home&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>
