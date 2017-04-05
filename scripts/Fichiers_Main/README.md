@@ -17,7 +17,8 @@ qui fonctionnent indépendamment de la LoPy.
 
 - Liaison Série : Fichiers pour la liaison série.
 - LoRa : Fichiers pour la connection LoRa.
-
+- Wifi : Tentatives de connections Wifi
+- Bluetooth : Essaies sur le Bluetooth en mode Maitre et Esclave.
 
 Merci d'ajouter pour chaque main et fonctionnalité
 la série de dossiers nécessaires.
