@@ -2,14 +2,17 @@
 from network import Bluetooth
 import time
 bt = Bluetooth()
-bt.start_scan(-1)
+bt.start_scan(5)
 
-while True:
+def Bluetooth_loo():
   adv = bt.get_adv()
-  if adv and bt.resolve_adv_data(adv.data, Bluetooth.ADV_NAME_CMPL) == 'Effe':
+  if adv and bt.resolve_adv_data(adv.data, Bluetooth.ADV_NAME_CMPL) == 'Glucose':
       try:
+          print("Connection...")
           conn = bt.connect(adv.mac)
+          print("Connected, starting reading service...")
           services = conn.services()
+          print("Service readed ....") 
           for service in services:
               time.sleep(0.050)
               if type(service.uuid()) == bytes:
@@ -21,9 +24,10 @@ while True:
                   if (char.properties() & Bluetooth.PROP_READ):
                       print('char {} value = {}'.format(char.uuid(), char.read()))
           conn.disconnect()
-          break
+          return
       except:
           print("Error while connecting or reading from the BLE device")
-          break
+          return
   else:
       time.sleep(0.050)
+
