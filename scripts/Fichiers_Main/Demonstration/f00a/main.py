@@ -21,6 +21,7 @@ def readPin(arg_list):
         val = apin()
         # Rélge de 3 pour avoir une tension
         val = val * 3.16/4096 # (4096 = 2**12 -1 ==> Pas)
+        gw.sendMsg("Potentiomètre : " + str(val) + " V");
         
         return True
     except Exception :
