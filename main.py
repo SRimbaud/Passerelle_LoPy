@@ -37,17 +37,13 @@ def serialLoop() :
 
     #initialisation 
 	gw = Gateway(lopy)
-	gw.addNewNode(node,cle_node )
-	gw.startLoRa()
-	#global x 
+        gw.addNewNode(node,cle_node )
+        gw.startLoRa()
 	while True : 
-		gw.recvMsg()
-		data = gw.popOldestMsg()
 		try :
-			if ( data != [] ) :
-				#print(data)
+			if ( gw.recvMsg() ) :
+		                data = gw.popOldestMsg()
 				client.publish("/users/quentinthse/test", str(data[0]) + " : " + str(data[1]), qos = 0) 
 
 		except IndexError:
-            #print((x))
 			pass
