@@ -48,7 +48,19 @@ apin = adc.channel(pin='P17', attn=3)
 # On vient de tout initialiser.
 # On crée une alarme chargée de tout lire puis envoyer sur le LoRa.
 args = [apin, gw]
-alarme = Timer.Alarm(readPin, 2.00, arg=args, periodic=True)
+#alarme = Timer.Alarm(readPin, 2.00, arg=args, periodic=True)
+
+while True :
+    try :
+        val = apin()
+        # Rélge de 3 pour avoir une tension
+        val = val * 3.16/4096 # (4096 = 2**12 -1 ==> Pas)
+        print(gw.sendMsg("Potentiomètre : " + str(val) + " V", "effe"));
+        
+    except Exception :
+        print("Error in readPin, Alarm off")
+        alarme.cancel()
+    time.sleep(1)
 
 # typedef enum {
 #     ADC_ATTEN_0DB = 0,
